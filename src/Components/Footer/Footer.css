@@ -1,0 +1,13 @@
+footer{
+    background-color: #f1f1f1;
+}
+footer Link, footer p{
+    color: #5e6d88;
+}
+li{
+    margin: 15px 0;
+}
+ul{
+    list-style: none;
+
+}
