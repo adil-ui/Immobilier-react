@@ -1,3 +1,4 @@
+import About from '../../Components/About/About'
 import Hero from '../../Components/Hero/Hero'
 import Categories from './Categories/Categories'
 import './Home.css'
@@ -9,7 +10,7 @@ const Home = () => {
 		<Hero />
 		<Categories/>
 		<LatestProtperties/>
-		
+		<About />
 	  </section>
   )
 }

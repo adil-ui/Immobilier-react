@@ -2,10 +2,10 @@ import './Categories.css'
 
 const Categories = () => {
   return (
-	  <section className="home-category-section">
+	  <section className="home-category-section  mt-5 pb-5">
 		  <div className="container py-2">
 			  <div className="row justify-content-center">
-				  <h2 class="text-center my-5 fw-semibold">Choisir votre catégorie</h2>
+				  <h2 class="text-center mb-5 fw-semibold">Choisir votre catégorie</h2>
 				  <div className="col-xl-2 col-md-4 col-sm-6 col-8 mb-3  ">
 					  <div className="card border-0 category-box ">
 						  <div className="card-body text-center">

@@ -1,9 +1,12 @@
 header{
+    
+    position: relative;
+}
+.hero_section{
     height: 100vh;
     background-image: url(/public/assets/images/hero-01.jpg);
     background-size: cover;
     background-repeat: no-repeat;
-    position: relative;
 }
 nav{
     z-index: 99;
@@ -33,12 +36,12 @@ a{
         font-size: 40px;
     }
 
-    header{
-        height: 120vh;
+    .hero_section{
+        height: 115vh;
     }
     .navbar-collapse{
         background-color: white !important;
-        padding: 5px 0px 15px 20px;
+        padding: 15px 0px 15px 25px;
         box-shadow: 0 0 5rem rgba(99, 99, 99, 0.416);
         border-radius: 10px;
     }

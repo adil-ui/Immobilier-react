@@ -46,14 +46,14 @@ const NavBar = () => {
                         {
                             navItem.map(item => {
                                 return (
-                                    <li className='nav-item me-2' >
+                                    <li className='nav-item me-2 mt-0 mb-1 mt-lg-3' >
                                         <NavLink className="fontSize18 nav-link text-black" to={item.href} >{item.content}</NavLink>
                                     </li>
                                 )
                             })
                         }
-                        <li className='nav-item mt-2 mt-lg-2'>
-                            <NavLink className="btn btn-warning fw-semibold d-inline rounded-5 fontSize17 shadow-sm px-3" style={{padding:'11px 0'}} to={''}>+ Publier une annonce</NavLink>
+                        <li className='nav-item mt-2 mt-lg-3'>
+                            <NavLink className="btn btn-warning fw-semibold   rounded-5 fontSize17 shadow-sm px-3"  to={''}><i class="bi bi-camera-fill me-1 align-midlle fontSize17"></i> Publier une annonce</NavLink>
                         </li>
                     </ul>
                 </div>

@@ -1,4 +1,5 @@
 import { useTypewriter } from 'react-simple-typewriter'
+import Footer from '../Footer/Footer'
 
 import './Hero.css'
 const Hero = () => {
@@ -10,15 +11,18 @@ const Hero = () => {
         delaySpeed : 1500,
       })
     return (
-        <section className='hero col-lg-11 col-11'>
-            <div className='hero-desc text-center text-light '>
-                <h1 className='mb-4 fontSize60 fw-semibold'> Recherchez votre prochaine <span className='text-warning'>{text}</span>  </h1>
-                <h2 className='col-lg-6  col-12  lh-base mx-auto fw-semibold'>Trouvez les nouveaux biens et les biens vedettes situés dans votre pays.</h2>
-            </div>
-            <div class="row justify-content-center mt-md-5 mt-sm-0 ">
-                <div class="col-xl-10 col-lg-11 col-md-12 bg-light p-4 rounded-2 shadow">
+        
+        <section className='hero_section'>
+            <div className='hero-back'></div>
+            <section className='hero col-lg-11 col-11'>
+                <div className='hero-desc text-center text-light '>
+                    <h1 className='mb-4 fontSize60 fw-semibold'> Recherchez votre prochaine <span className='text-warning'>{text}</span>  </h1>
+                    <h2 className='col-lg-6  col-12  lh-base mx-auto fw-semibold'>Trouvez les nouveaux biens et les biens vedettes situés dans votre pays.</h2>
+                </div>
+                <div class="row justify-content-center mt-md-5 mt-sm-0 ">
+                    <div class="col-xl-10 col-lg-11 col-md-12 col-sm-8 col-10 bg-light p-4 rounded-2 shadow">
                         <div class="row ">
-                            <div class="col-md-3 col-sm-10 mx-auto">
+                            <div class="col-md-3 col-sm-12 mx-auto">
                                 <div class="form-floating ">
                                     <select class="form-select" id="ville" style={{ height: '60px' }}>
                                         <option selected>Ouvrez menu de sélection</option>
@@ -55,7 +59,7 @@ const Hero = () => {
                                 </div>
                             </div>
 
-                            <div class=" col-md-3 col-sm-10 mx-auto">
+                            <div class=" col-md-3 col-sm-12 mx-auto">
                                 <div class="form-floating">
                                     <select class="form-select" id="property" style={{ height: '60px' }}>
                                         <option selected>Ouvrez menu de sélection</option>
@@ -71,7 +75,7 @@ const Hero = () => {
                                 </div>
                             </div>
 
-                            <div class=" col-md-3 col-sm-10 mx-auto">
+                            <div class=" col-md-3 col-sm-12 mx-auto">
                                 <div class="form-floating">
                                     <select class="form-select " id="price" style={{ height: '60px' }} >
                                         <option selected>Ouvrez menu de sélection</option>
@@ -92,9 +96,12 @@ const Hero = () => {
                                 </div>
                             </div>
                         </div>
+                    </div>
                 </div>
-            </div>
+            </section>
         </section>
+      
+       
     )
 }
 
