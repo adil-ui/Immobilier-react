@@ -5,33 +5,20 @@ const navItem = [
         content: 'Accueil',
         href: '/'
     },
-    {
-        content: 'Acheter',
-        href: '/achat'
-    },
-    {
-        content: 'Louer',
-        href: '/louer'
-    },
+
     {
         content: 'Recherche',
         href: '/recherche'
-    },
-    {
-        content: 'A propos',
-        href: '/about'
     },
     {
         content: 'Contact',
         href: '/contact'
     },
     {
-        content: 'Se connecter',
-        href: '/login'
-    }, {
-        content: "S'inscrire",
-        href: '/register'
-    },
+        content: 'Mon Compte',
+        href: '/connexion'
+    }
+
 ]
 const NavBar = () => {
     return (
@@ -47,7 +34,7 @@ const NavBar = () => {
                             navItem.map(item => {
                                 return (
                                     <li className='nav-item me-2 mt-0 mb-1 mt-lg-3' >
-                                        <NavLink className="fontSize18 nav-link text-black" to={item.href} >{item.content}</NavLink>
+                                        <NavLink className="fontSize18 nav-link text-dark fw-semibold" to={item.href} >{item.content}</NavLink>
                                     </li>
                                 )
                             })

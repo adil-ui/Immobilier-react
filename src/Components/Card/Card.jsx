@@ -3,7 +3,7 @@ import './Card.css'
 const Card = (elt) => {
     console.log(elt);
     return (
-        <div className="col-xl-4 col-lg-5 col-md-6 col-sm-10 col-10 mb-4 mx-auto card_container" >
+        <article className="col-xl-4 col-lg-5 col-md-6 col-sm-10 col-10 mb-4 mx-auto card_container" >
             <div className="card border-0">
                 <div className='card_img position-relative '>
                     <a href="/"><img src="/assets/images/apartement-01.jpg" alt="user_image" class="img-fluid" /></a>
@@ -23,7 +23,7 @@ const Card = (elt) => {
                         </div>
                 </div>
             </div>
-        </div>
+        </article>
     )
 }
 
