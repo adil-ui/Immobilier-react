@@ -8,6 +8,7 @@ import ForgotPassword from './Pages/Authentication/Forgot-password/ForgotPasswor
 import Home from './Pages/Home/Home';
 import Register from './Pages/Authentication/Register/Register';
 import ResetPassword from './Pages/Authentication/Reset-password/ResetPassword';
+import Contact from './Pages/Contact/Contact';
 
 function App() {
   return (
@@ -21,8 +22,8 @@ function App() {
           <Route path='/connexion' element={<Login/>}/>
           <Route path='/inscription' element={<Register/>}/>
           <Route path='/mot-de-passe-oublier' element={<ForgotPassword/>}/>
-          <Route path='/réinitialiser-le-mot-de-passe' element={<ResetPassword/>}/>
-        
+          <Route path='/réinitialiser-le-mot-de-passe' element={<ResetPassword/>}/>    
+          <Route path='/contact' element={<Contact/>}/>
         </Routes>
       </main>
       <Footer />

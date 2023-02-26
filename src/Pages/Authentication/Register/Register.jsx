@@ -35,9 +35,9 @@ const Register = () => {
 
     return (
         <section class="container row  mx-auto mt-5 py-5">
-            <div className='row mx-auto mt-2 col-xl-5 col-lg-7 cold-md-8 col-sm-10 col-12 shadow px-4 py-5 rounded-4'>
-                <form className='row ' onSubmit={handleSubmit} encType="multipart/form-data">
-                    <h4 className='text-center fw-bold mb-2 text-warning'>S'inscrire</h4>
+            <div className='row mx-auto mt-2 col-xl-5 col-lg-7 cold-md-8 col-sm-10 col-12 shadow px-4 pt-5 py-4 rounded-4'>
+                <form className='row mx-auto mb-2' onSubmit={handleSubmit} encType="multipart/form-data">
+                    <h3 className='text-center fw-bold mb-4 pb-2 text-warning'>Inscrivez-vous</h3>
                     <div class=" col-md-12 mb-2 ">
                         <label class="form-label fw-semibold">Nom et Prénom <span class="text-danger">*</span></label>
                         <input type="text" class="form-control" name='name' value={name} onChange={(e) => setName(e.target.value)} required />

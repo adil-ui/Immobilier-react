@@ -1,5 +1,4 @@
 import { useTypewriter } from 'react-simple-typewriter'
-import Footer from '../Footer/Footer'
 
 import './Hero.css'
 const Hero = () => {
@@ -90,9 +89,9 @@ const Hero = () => {
                                 </div>
                             </div>
 
-                            <div class="col-xl-2 col-lg-3 col-md-3 col-sm-10  mx-auto"  >
+                            <div class="col-xl-1 col-lg-3 col-md-3 col-sm-10  mx-auto"  >
                                 <div class="form-group none d-flex align-items-end">
-                                    <button class="btn btn-warning  w-100 fw-semibold fontSize18 " style={{ height: '60px' }}><i class="bi bi-search me-3 align-middle"></i>Chercher</button>
+                                    <button class="btn btn-warning px-4 fs-4 mx-auto" style={{ height: '60px' }}><i class="bi bi-search  align-middle"></i></button>
                                 </div>
                             </div>
                         </div>

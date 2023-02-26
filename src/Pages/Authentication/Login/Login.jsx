@@ -46,9 +46,9 @@ const Login = () => {
     }
     return (
             <section className="container row  mx-auto my-5 py-5">
-                <div className="login  mx-auto my-5 d-flex align-items-center col-xl-4 col-lg-6 cold-md-8 col-sm-10 col-11 shadow p-5 rounded-4">
+                <div className="mx-auto my-5 d-flex align-items-center col-xl-4 col-lg-6 cold-md-8 col-sm-10 col-11 shadow p-5 rounded-4">
                     <form onSubmit={clickLogin} className="row g-3 col-11 mx-auto ">
-                        <h3 className='text-center fw-bolder mb-4 text-warning'>Login</h3>
+                        <h3 className='text-center fw-bolder mb-4 text-warning'>Connectez-vous</h3>
                         <div className="mb-2 ">
                             <label className="form-label fw-semibold">Email</label>
                             <input type="email" ref={emailRef} className="form-control" name='email' value={email} onChange={handleEmailChange} required />
@@ -63,7 +63,7 @@ const Login = () => {
                             <NavLink to={'/mot-de-passe-oublier'} className="text-warning fw-semibold">Mot de passe oublier ?</NavLink>
                         </div>
                         <div className="mt-4">
-                            <button disabled={!validator.isEmail(email)} type="submit" className="btn btn-warning col-12 fw-semibold px-4">Se Connecter</button>
+                            <button disabled={!validator.isEmail(email)} type="submit" className="btn btn-warning  col-12 fw-semibold px-4">Se Connecter</button>
                         </div>
                     </form>
                 </div>

@@ -3,3 +3,6 @@
     right: -25%;
     transform: translate(0, -50%);
 }
+.about{
+    position: relative;
+}
