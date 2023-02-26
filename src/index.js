@@ -12,11 +12,11 @@ $(document).ready(() => {
     $(window).scroll(() => {
         if($(window).scrollTop() !== 0 ) {
             $('nav').removeClass("bg-transparent").addClass('bg-light')
-            $('nav').css("box-shadow", "rgba(99, 99, 99, 0.400) 0 0 8rem")
+            $('nav').addClass('shadow-lg')
         }
         else{
           $('nav').removeClass('bg-light').addClass('bg-transparent');
-          $('nav').css("box-shadow", 'none')
+          $('nav').removeClass('shadow-lg')
 
         }
 
