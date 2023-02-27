@@ -9,6 +9,8 @@ import Home from './Pages/Home/Home';
 import Register from './Pages/Authentication/Register/Register';
 import ResetPassword from './Pages/Authentication/Reset-password/ResetPassword';
 import Contact from './Pages/Contact/Contact';
+import Details from './Pages/Details/Details';
+import AddProperty from './Pages/Add-property/AddProperty';
 
 function App() {
   return (
@@ -24,6 +26,8 @@ function App() {
           <Route path='/mot-de-passe-oublier' element={<ForgotPassword/>}/>
           <Route path='/réinitialiser-le-mot-de-passe' element={<ResetPassword/>}/>    
           <Route path='/contact' element={<Contact/>}/>
+          <Route path='/details' element={<Details/>}/>
+          <Route path='/publier-annonce' element={<AddProperty/>}/>
         </Routes>
       </main>
       <Footer />

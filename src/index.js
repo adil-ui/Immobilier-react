@@ -20,10 +20,13 @@ $(document).ready(() => {
 
         }
 
-      
-        
     })
 })
+$(document).ready(function(){
+$('.mySlide').slick({
+    
+});     
+});
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

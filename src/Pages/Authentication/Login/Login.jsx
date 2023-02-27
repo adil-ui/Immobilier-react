@@ -1,4 +1,4 @@
-import { useContext, useRef, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { API_URL } from '../../../config/constants';
 import AuthContext from '../../../context/auth-context';
@@ -44,6 +44,9 @@ const Login = () => {
 
         }
     }
+    useEffect(() => {
+        window.scroll(0, 0);
+    }, [])
     return (
             <section className="container row  mx-auto my-5 py-5">
                 <div className="mx-auto my-5 d-flex align-items-center col-xl-4 col-lg-6 cold-md-8 col-sm-10 col-11 shadow p-5 rounded-4">
