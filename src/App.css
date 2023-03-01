@@ -22,7 +22,10 @@ nav{
     font-size: 60px;
 }
 .fontSize35{
-    font-size: 17px;
+    font-size: 35px;
+}
+.fontSize45{
+    font-size: 45px;
 }
 .fontSize17{
     font-size: 17px;
@@ -53,4 +56,6 @@ a{
 
 
 
- 
+ .height_100{
+    height: 100%;
+ }

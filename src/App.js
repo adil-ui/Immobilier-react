@@ -11,6 +11,13 @@ import ResetPassword from './Pages/Authentication/Reset-password/ResetPassword';
 import Contact from './Pages/Contact/Contact';
 import Details from './Pages/Details/Details';
 import AddProperty from './Pages/Add-property/AddProperty';
+import Search from './Pages/Search/Search';
+import Dashboard from './Pages/Dashboard/Dashboard';
+import Profile from './Pages/Dashboard/Profile/Profile';
+import Aside from './Pages/Dashboard/Aside/Aside';
+import Categories from './Pages/Dashboard/Categories/Categories';
+import Property from './Pages/Dashboard/Property/Property';
+import User from './Pages/Dashboard/User/User';
 
 function App() {
   return (
@@ -28,6 +35,16 @@ function App() {
           <Route path='/contact' element={<Contact/>}/>
           <Route path='/details' element={<Details/>}/>
           <Route path='/publier-annonce' element={<AddProperty/>}/>
+          <Route path='/recherche' element={<Search/>}/>
+          <Route path='/dashboard' element={<Aside/>}>
+                <Route path='' element = {<Dashboard />}  />                 
+                <Route path='profile' element = {<Profile />}  />                 
+                <Route path='categories' element = {<Categories />}  />                 
+                <Route path='Logements' element = {<Property />}  />                 
+                <Route path='utilisateurs' element = {<User />}  />                 
+                                
+          </Route>
+
         </Routes>
       </main>
       <Footer />

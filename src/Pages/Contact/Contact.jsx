@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { API_URL } from '../../config/constants';
 const Contact = () => {
@@ -18,6 +18,9 @@ const Contact = () => {
             setNotification(error.data.error)
         }
     };
+    useEffect(() => {
+        window.scroll(0, 0);
+    }, [])
     return (
         <section className="container row  mx-auto my-5 py-5">
             <h2 className='text-center fw-bolder my-4 text-warning'>Contactez-nous</h2>

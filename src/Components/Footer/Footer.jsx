@@ -2,7 +2,7 @@ import { Link} from "react-router-dom"
 import './Footer.css'
 const Footer = () => {
 	return (
-		<footer className="mt-5">
+		<footer>
 			<section className="container">
 				<div className="row mt-5">
 					<div className="col-md-6 col-lg-3 mb-4 mb-md-0 ">

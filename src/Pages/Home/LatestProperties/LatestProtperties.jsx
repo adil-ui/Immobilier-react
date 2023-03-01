@@ -77,11 +77,11 @@ const LatestProtperties = () => {
                 <h2 class="text-center fw-semibold">Les dernières propriétés</h2>
                 <p class="text-center  fs-4 mt-3">Cherchez vos propriétés pour une vie heureuse.</p>
                 <div class="mt-5">
-                        <div class="product-item" style={{ position: 'relative', height: '1051.2px' }}>
-                            <div class="row">
+                    <div class="product-item" style={{ position: 'relative', height: '1051.2px' }}>
+                        <div class="row">
                             {cardItems.map(elt => <Card elt={elt} key={elt.id} />)}
-                            </div>
                         </div>
+                    </div>
                 </div>
             </div>
         </section>

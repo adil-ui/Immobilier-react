@@ -17,6 +17,10 @@ const navItem = [
     {
         content: 'Mon Compte',
         href: '/connexion'
+    },
+    {
+        content: 'Dashboard',
+        href: '/dashboard'
     }
 
 ]

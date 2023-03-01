@@ -1,5 +1,9 @@
+import { useEffect } from 'react';
 import './AddProperty.css'
 const AddProperty = () => {
+    useEffect(() => {
+        window.scroll(0, 0);
+    }, [])
     return (
         <section className='my-5 py-4'>
             <div className="add_property my-3 py-5 ">
