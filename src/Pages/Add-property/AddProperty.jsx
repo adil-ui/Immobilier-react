@@ -103,7 +103,7 @@ const AddProperty = () => {
                             <input type="number" className="form-control" name='latitude ' id="latitude " required />
                         </div>
                     </div>
-                    <div className='row g-4 shadow-sm border rounded-4 px-4 pt-2 pb-5 mt-4'>
+                    <div className='row g-4 shadow-sm border rounded-4 px-4 pt-2 pb-4 mt-4'>
                         <h5 className='fw-bold mb-4'>Caractéristiques du logement</h5>
                         <div className="form-check col-md-3">
                             <input className="form-check-input" type="checkbox" value="ascenseur" id="Ascenseur" />
@@ -152,12 +152,13 @@ const AddProperty = () => {
                         <div className="form-check col-md-3">
                             <input className="form-check-input" type="checkbox" value="vidéo Surveillance" id="Vidéo Surveillance" />
                             <label className="form-check-label" for="Vidéo Surveillance">Vidéo Surveillance</label>
+                            
                         </div>
-                        
+                        <div class="col-12 text-center mt-5">
+                                <button type="submit" class="btn btn-warning fw-semibold px-4 shadow-sm col-12 fs-5 py-2">Publier l'annonce</button>
+                        </div>
                     </div>
-                    <div class="col-12 text-center mt-4">
-                        <button type="submit" class="btn btn-warning fw-semibold px-4 shadow-sm col-12 fs-5 py-2">Publier</button>
-                    </div>
+
                 </form>
             </div>
         </section>

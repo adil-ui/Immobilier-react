@@ -18,6 +18,7 @@ import Aside from './Pages/Dashboard/Aside/Aside';
 import Categories from './Pages/Dashboard/Categories/Categories';
 import Property from './Pages/Dashboard/Property/Property';
 import User from './Pages/Dashboard/User/User';
+import MyProperties from './Pages/Dashboard/MyProperties/MyProperties';
 
 function App() {
   return (
@@ -38,13 +39,12 @@ function App() {
           <Route path='/recherche' element={<Search/>}/>
           <Route path='/dashboard' element={<Aside/>}>
                 <Route path='' element = {<Dashboard />}  />                 
-                <Route path='profile' element = {<Profile />}  />                 
-                <Route path='categories' element = {<Categories />}  />                 
-                <Route path='Logements' element = {<Property />}  />                 
+                <Route path='profile' element = {<Profile />}  />   
                 <Route path='utilisateurs' element = {<User />}  />                 
-                                
+                <Route path='categories' element = {<Categories />}  />                 
+                <Route path='annonces' element = {<Property />}  />                 
+                <Route path='mes-annonces' element = {<MyProperties />}  />                                                 
           </Route>
-
         </Routes>
       </main>
       <Footer />

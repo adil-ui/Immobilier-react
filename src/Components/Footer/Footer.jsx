@@ -42,7 +42,7 @@ const Footer = () => {
 				</div>
 				<div className="row mt-5">
 					<div className="col-md-12 text-center">
-						<p classNameName="mt-4">Copyright &copy; 2023 IMMOPRO. All rights reserved Designd By KingAdil</p>
+						<p classNameName="mt-4">Copyright &copy; 2023 IMMOPRO. All rights reserved Designd By <Link to='/https://adil-ui.github.io/Portfolio/'>KingAdil</Link> </p>
 					</div>
 				</div>
 			</section>
