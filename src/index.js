@@ -6,6 +6,11 @@ import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
 import $ from 'jquery'
 
+// Définition d'un objet contenant les villes et leurs quartiers
+
+
+
+
 
 
 $(document).ready(() => {

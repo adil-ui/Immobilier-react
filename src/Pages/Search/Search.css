@@ -14,3 +14,7 @@
     will-change: transform;
 
 }
+.active{
+    color: #212529 !important;
+    border: none !important;
+}

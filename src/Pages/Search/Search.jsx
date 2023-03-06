@@ -81,7 +81,7 @@ const Search = () => {
             <div className="container bg-white rounded-3 py-1 shadow-sm d-flex justify-content-end align-items-center mx-auto">
                 <div className="py-3">
                     <span className="me-3 fw-semibold">Trier par:</span>
-                    <Link to='' className="me-2 text-warning border-bottom border-warning">Date</Link>
+                    <Link to='' className="me-2 text-warning border-bottom border-warning active" >Date</Link>
                     <Link to='' className="me-2 text-warning border-bottom border-warning">Prix Croissant</Link>
                     <Link to='' className="text-warning border-bottom border-warning">Prix Décroissant</Link>
                 </div>
@@ -95,11 +95,7 @@ const Search = () => {
                         <h3><i class="bi bi-funnel"></i></h3>
                     </div>
                         <div className="form_search row px-3 w-100 mx-auto">
-                            <div className="position-relative col-xl-12 col-lg-4 col-md-6 col-sm-12 col-12">
-                                <input type="number" className="form-control " style={{ paddingLeft: '40px' }} name='price' id="price" placeholder="Quartier" required />
-                                <i class="bi bi-search position-absolute top-0 start-0 ms-4 mt-2 fs-5 text-secondary text-opacity-75"></i>
-                            </div>
-                            <div className="col-xl-12 col-lg-4 col-md-6 col-sm-12 col-12">
+                        <div className="col-xl-12 col-lg-4 col-md-6 col-sm-12 col-12">
                                 <select class="form-select" id="ville">
                                     <option selected disabled>Ville</option>
                                     <option value="3" >Tout le Maroc</option>
@@ -130,6 +126,11 @@ const Search = () => {
                                     <option value="other" style={{ color: "red" }}>Choisir une autre ville...</option>
                                 </select>
                             </div>
+                            <div className="position-relative col-xl-12 col-lg-4 col-md-6 col-sm-12 col-12">
+                                <input type="number" className="form-control " style={{ paddingLeft: '40px' }} name='price' id="price" placeholder="Quartier" required />
+                                <i class="bi bi-search position-absolute top-0 start-0 ms-4 mt-2 fs-5 text-secondary text-opacity-75"></i>
+                            </div>
+                            
 
                             <div className="col-xl-12 col-lg-4 col-md-6 col-sm-12 col-12">
                                 <select id="category" name='category' className="form-select" required>

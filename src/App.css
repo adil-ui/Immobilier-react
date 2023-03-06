@@ -11,6 +11,19 @@ header{
 nav{
     z-index: 99;
 }
+.nav-link{
+    transition: .5s;
+}
+.nav-link:hover{
+    color: #f5a306 !important;
+    transform: translateY(-2px);
+}
+.btn_anim{
+    transition: .5s;
+}
+.btn_anim:hover{
+    transform: translateY(-2px);
+}
 .btn-warning{
     background-color: #f7b40c !important;
 }
@@ -53,6 +66,12 @@ a{
     }
  }
 
+ .card_contact{
+   transition: .6s;
+ }
+ .card_contact:hover{
+    transform: translateY(-5px);
+ }
 
 
 

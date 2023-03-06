@@ -21,7 +21,8 @@ const navItem = [
     {
         content: 'Dashboard',
         href: '/dashboard'
-    }
+    },
+    
 
 ]
 const NavBar = () => {
@@ -44,7 +45,7 @@ const NavBar = () => {
                             })
                         }
                         <li className='nav-item mt-2 mt-lg-3'>
-                            <NavLink className="btn btn-warning fw-semibold   rounded-2 fontSize17 shadow-sm px-3"  to='/publier-annonce'><i class="bi bi-camera-fill me-1 align-midlle fontSize17"></i> Publier une annonce</NavLink>
+                            <NavLink className="btn btn-warning fw-semibold   rounded-2 fontSize17 shadow-sm px-3 btn_anim"  to='/publier-annonce'><i class="bi bi-camera-fill me-1 align-midlle fontSize17"></i> Publier une annonce</NavLink>
                         </li>
                     </ul>
                 </div>
