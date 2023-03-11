@@ -17,7 +17,7 @@ const Profile = () => {
     if (user) {
       setUserId(user.id);
       setUserName(user.name);
-      setUserAddress(user.adress);
+      setUserAddress(user.address);
       setUserPhone(user.phone);
       setUserPicture(user.picture);
       setUserEmail(user.email);
@@ -50,6 +50,7 @@ const Profile = () => {
   return (
     <div className=" col-md-8 col-sm-12 bg-white  py-4 rounded-2 shadow-sm height_100" >
       <form className="row g-3 col-11 mx-auto " onSubmit={updateUser} encType="multipart/form-data">
+      <h5 className="fw-semibold mb-4">Mes informations</h5>
         <div className="col-md-6">
           <label className="form-label fw-semibold">Name</label>
           <input type="text" className="form-control" name='name' value={userName} onChange={(e) => setUserName(e.target.value)} required />
@@ -65,7 +66,6 @@ const Profile = () => {
         <div className="">
           <label for="formFile" className="form-label fw-semibold">Picture</label>
           <input className="form-control" type="file" id="formFile" name="picture" onChange={(e) => setUserPicture(e.target.files[0])} />
-          <img src={API_URL + userPicture} alt="" className="profile_img rounded-circle mt-1" />
         </div>
         <div className="col-md-6 mb-3">
           <label className="form-label fw-semibold">Email</label>

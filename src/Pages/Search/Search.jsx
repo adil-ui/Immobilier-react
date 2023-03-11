@@ -1,101 +1,80 @@
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
 import Cardd from "../../Components/Cardd/Cardd"
+import { API_URL } from "../../config/constants"
+
+import $ from 'jquery'
+
 import './Search.css'
+import Paginationn from "../../Components/Paginationn/Paginationn"
 
-const cardItems = [
-    {
-        id: 1,
-        title: 'Real Luxury Family House Villa',
-        address: '1421 San Pedro St, Los Angeles, CA 90015',
-        price: '1.300.000',
-        bedroom: '6',
-        bathroom: '2',
-        square_meter: '250',
-        category: 'Maison',
-        type: 'à vendre',
-    },
-    {
-        id: 2,
-        title: 'Real Luxury Family House Villa',
-        address: '1421 San Pedro St, Los Angeles, CA 90015',
-        price: '500.000',
-        bedroom: '5',
-        bathroom: '1',
-        square_meter: '150',
-        category: 'Appartement',
-        type: 'à vendre',
-    },
-    {
-        id: 3,
-        title: 'Real Luxury Family House Villa',
-        address: '1421 San Pedro St, Los Angeles, CA 90015',
-        price: '65.000',
-        bedroom: '4',
-        bathroom: '1',
-        square_meter: '100',
-        category: 'Maison',
-        type: 'à louer',
-    },
-    {
-        id: 4,
-        title: 'Real Luxury Family House Villa',
-        address: '1421 San Pedro St, Los Angeles, CA 90015',
-        price: '1.300.000',
-        bedroom: '6',
-        bathroom: '2',
-        square_meter: '250',
-        category: 'Maison',
-        type: 'à vendre',
-    },
-    {
-        id: 5,
-        title: 'Real Luxury Family House Villa',
-        address: '1421 San Pedro St, Los Angeles, CA 90015',
-        price: '1.300.000',
-        bedroom: '6',
-        bathroom: '2',
-        square_meter: '250',
-        category: 'Villa',
-        type: 'à vendre',
-    },
-    {
-        id: 6,
-        title: 'Real Luxury Family House Villa',
-        address: '1421 San Pedro St, Los Angeles, CA 90015',
-        price: '65.000',
-        bedroom: '4',
-        bathroom: '1',
-        square_meter: '100',
-        category: 'Maison',
-        type: 'à louer',
-    }
 
-]
 const Search = () => {
+    const [data, setData] = useState([]);
+    useEffect(() => {
+        fetch(API_URL + 'api/properties/1')
+            .then(response => response.json())
+            .then(result => {
+                setData(result.properties);
+            })
+    }, [])
+
+    const filterByDate = () => {
+
+        fetch(API_URL + 'api/properties/1')
+            .then(response => response.json())
+            .then(result => {
+                setData(result.properties);
+            })
+        $('.dateActive').addClass('active')
+        $('.ascActive').removeClass('active')
+        $('.descActive').removeClass('active')
+
+    }
+    const orderByAsc = () => {
+        const copyData = [...data];
+        copyData.sort((a, b) => (a.price < b.price ? 1 : -1));
+        setData(copyData);
+        $('.dateActive').removeClass('active')
+        $('.ascActive').addClass('active')
+        $('.descActive').removeClass('active')
+    }
+    const orderByDesc = () => {
+        const copyData = [...data];
+        copyData.sort((a, b) => (a.price > b.price ? 1 : -1));
+        setData(copyData);
+        $('.dateActive').removeClass('active')
+        $('.ascActive').removeClass('active')
+        $('.descActive').addClass('active')
+    }
     useEffect(() => {
         window.scroll(0, 0);
     }, [])
     return (
         <section className="search py-4">
-            <div className="container bg-white rounded-3 py-1 shadow-sm d-flex justify-content-end align-items-center mx-auto">
-                <div className="py-3">
-                    <span className="me-3 fw-semibold">Trier par:</span>
-                    <Link to='' className="me-2 text-warning border-bottom border-warning active" >Date</Link>
-                    <Link to='' className="me-2 text-warning border-bottom border-warning">Prix Croissant</Link>
-                    <Link to='' className="text-warning border-bottom border-warning">Prix Décroissant</Link>
+            <div className="container bg-white rounded-3 py-1 shadow-sm   mx-auto">
+                <div className="py-3 d-flex justify-content-between align-items-center">
+                    <div className="fw-semibold">78 Résultats</div>
+                    <div>
+                        <span className="me-3 fw-semibold">Trier par:</span>
+                        <Link onClick={filterByDate} className="me-2 text-warning border-bottom border-warning dateActive active">Date</Link>
+                        <Link onClick={orderByAsc} className="me-2 text-warning border-bottom border-warning ascActive">Prix Croissant</Link>
+                        <Link onClick={orderByDesc} className="text-warning border-bottom border-warning descActive">Prix Décroissant</Link>
+
+                    </div>
+
                 </div>
             </div>
-            <div className="row pb-5 pt-4 container mx-auto g-0"> 
-                <div className='col-xl-4  ps-0 pe-xl-5 mx-auto'>
-                   
+            <div className="row pb-5 pt-4 container mx-auto g-0">
+                <div className='col-xl-4  ps-0 pe-xl-5 mx-auto aside'>
+
                     <form action="" className="shadow-sm  bg-white rounded-3 pb-4 mx-auto">
-                    <div className="bg-warning w-100 rounded-top-3 px-3 py-2 mb-3 d-flex justify-content-between align-items-center">
-                        <h4 className="mt-1 fw-semibold">Filtre </h4>
-                        <h3><i class="bi bi-funnel"></i></h3>
-                    </div>
+                        <div className="bg-warning w-100 rounded-top-3 px-3 py-2 mb-3 d-flex justify-content-between align-items-center">
+                            <h4 className="mt-1 fw-semibold">Filtre </h4>
+                            <h3><i class="bi bi-funnel"></i></h3>
+                        </div>
                         <div className="form_search row px-3 w-100 mx-auto">
-                        <div className="col-xl-12 col-lg-4 col-md-6 col-sm-12 col-12">
+                            <div className="col-xl-12 col-lg-4 col-md-6 col-sm-12 col-12">
                                 <select class="form-select" id="ville">
                                     <option selected disabled>Ville</option>
                                     <option value="3" >Tout le Maroc</option>
@@ -130,7 +109,7 @@ const Search = () => {
                                 <input type="number" className="form-control " style={{ paddingLeft: '40px' }} name='price' id="price" placeholder="Quartier" required />
                                 <i class="bi bi-search position-absolute top-0 start-0 ms-4 mt-2 fs-5 text-secondary text-opacity-75"></i>
                             </div>
-                            
+
 
                             <div className="col-xl-12 col-lg-4 col-md-6 col-sm-12 col-12">
                                 <select id="category" name='category' className="form-select" required>
@@ -233,8 +212,14 @@ const Search = () => {
                 </div>
                 <div className='col-xl-8 mt-xl-0 mt-lg-5 mt-5'>
                     <div class="col-12">
-                        {cardItems.map(elt => <Cardd elt={elt} key={elt.id} />)}
+                        {data.map(elt => <Cardd elt={elt} key={elt.id} />)}
                     </div>
+                    <Paginationn
+                        setElements={setData}
+                        elementName="properties"
+                        url={"api/properties/"}
+                        allElementsUrl={"api/properties"}
+                    />
                 </div>
             </div>
         </section>

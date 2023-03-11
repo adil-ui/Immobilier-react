@@ -80,7 +80,7 @@ const Contact = () => {
                         </div>
                         <div className='col-md-6 mb-2'>
                             <label className="form-label fw-semibold">Téléphone </label>
-                            <input type="tel" className="form-control" name='phone' value={subject} onChange={(e) => setPhone(e.target.value)} />
+                            <input type="tel" className="form-control" name='phone' value={phone} onChange={(e) => setPhone(e.target.value)} />
                         </div>
                         <div >
                             <label class="form-label fw-semibold">Message <span class="text-danger">*</span></label>

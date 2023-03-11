@@ -1,55 +1,57 @@
 import axios from 'axios';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import validator from 'validator';
 import { API_URL } from '../../config/constants';
+import AuthContext from '../../context/auth-context';
 import './AddProperty.css'
 
 const cities = [
     {
-      name: 'Agadir',
-      districts: ['Al Houda', 'Al Inbiâat', 'Dakhla', 'Founti', 'Les Amicales', 'Salam'],
+        name: 'Agadir',
+        districts: ['Al Houda', 'Al Inbiâat', 'Dakhla', 'Founti', 'Les Amicales', 'Salam'],
     },
     {
-      name: 'Al Hoceima',
-      districts: ['Badr', 'Bni Boufrah', 'El Massira', 'Ihchach', 'Isly', 'Sidi Bouhcine'],
+        name: 'Al Hoceima',
+        districts: ['Badr', 'Bni Boufrah', 'El Massira', 'Ihchach', 'Isly', 'Sidi Bouhcine'],
     },
     {
-      name: 'Azrou',
-      districts: ['El Houda', 'Lahbabi', 'Méchouar', 'Tifaouine', 'Tizi Nisly'],
+        name: 'Azrou',
+        districts: ['El Houda', 'Lahbabi', 'Méchouar', 'Tifaouine', 'Tizi Nisly'],
     },
     {
-      name: 'Casablanca',
-      districts: ['Aïn Sebaâ', 'Al Fida', 'Anfa', "Ben M'Sik", 'Hay Hassani', 'Maârif'],
+        name: 'Casablanca',
+        districts: ['Aïn Sebaâ', 'Al Fida', 'Anfa', "Ben M'Sik", 'Hay Hassani', 'Maârif'],
     },
     {
-      name: 'Fès',
-      districts: ['Agdal', 'Hay Labladi', 'Jnane Sbile', 'Moulay Rachid', 'Saïss', 'Zouagha'],
+        name: 'Fès',
+        districts: ['Agdal', 'Hay Labladi', 'Jnane Sbile', 'Moulay Rachid', 'Saïss', 'Zouagha'],
     },
     {
-      name: 'Kenitra',
-      districts: ['Al Amal', 'Al Irfane', 'El Bassatine', 'Ibn Sina', 'Maâmora', 'Sidi Taibi'],
+        name: 'Kenitra',
+        districts: ['Al Amal', 'Al Irfane', 'El Bassatine', 'Ibn Sina', 'Maâmora', 'Sidi Taibi'],
     },
     {
-      name: 'Marrakech',
-      districts: ['Al Makhfia', 'El Harti', 'Guéliz', 'Massira', 'Médina', 'Sidi Youssef Ben Ali'],
+        name: 'Marrakech',
+        districts: ['Al Makhfia', 'El Harti', 'Guéliz', 'Massira', 'Médina', 'Sidi Youssef Ben Ali'],
     },
     {
-      name: 'Oujda',
-      districts: ['Al Farah', 'Al Qods', 'Dar Sebti', 'El Hanchane', 'Izdihar', 'Lamkansa'],
+        name: 'Oujda',
+        districts: ['Al Farah', 'Al Qods', 'Dar Sebti', 'El Hanchane', 'Izdihar', 'Lamkansa'],
     },
     {
-      name: 'Rabat',
-      districts: ['Agdal', 'Hassan', 'Hay Riad', "L'Océan", 'Souissi', 'Yacoub Al Mansour'],
+        name: 'Rabat',
+        districts: ['Agdal', 'Hassan', 'Hay Riad', "L'Océan", 'Souissi', 'Yacoub Al Mansour'],
     },
     {
-      name: 'Tanger',
-      districts: ['Al Amal', 'Beni Makada', 'Iberia', 'Médina', 'Moujahidine', 'Malabata'],
+        name: 'Tanger',
+        districts: ['Al Amal', 'Beni Makada', 'Iberia', 'Médina', 'Moujahidine', 'Malabata'],
     },
-  ];
+];
 const AddProperty = () => {
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
     const [picture, setPicture] = useState('');
+    const [pictures, setPictures] = useState([]);
     const [categoryId, setCategoryId] = useState('');
     const [type, setType] = useState('');
     const [propertyNum, setPropertyNum] = useState('');
@@ -63,19 +65,29 @@ const AddProperty = () => {
     const [zipCode, setZipCode] = useState('');
     const [longitude, setLongitude] = useState('');
     const [latitude, setLatitude] = useState('');
-    const [cityId, setCityId] = useState('');
-    const [cityName, setCityName] = useState('');
-    const [sectorId, setSectorId] = useState('');
-    const [sectorName, setSectorName] = useState('');
-    const [districtId, setDistrictId] = useState('');
+    const [selectedCity, setSelectedCity] = useState('');
+    const [selectedDistrict, setSelectedDistrict] = useState('');
     const [districtName, setDistrictName] = useState('');
-    const [Message, setMessage] = useState('');
+    const [userId, setUserId] = useState('');
+    const [message, setMessage] = useState('');
+    const { user, setUser } = useContext(AuthContext);
+    useEffect(() => {
+        if (user) {
+            setUserId(user.id);
+        }
+    }, [user])
     const submit = async (e) => {
         e.preventDefault();
         const formData = new FormData();
         formData.append("title", title);
         formData.append("description", description);
         formData.append("picture", picture);
+        formData.append("userId", userId);
+        pictures.forEach((file, index) => {
+            formData.append(`picture_${index + 1}`, file);
+        });
+        formData.append("number_pictures", pictures.length);
+        formData.append("pictures", pictures);
         formData.append("price", price);
         formData.append("categoryId", categoryId);
         formData.append("type", type);
@@ -89,18 +101,16 @@ const AddProperty = () => {
         formData.append("zipCode", zipCode);
         formData.append("longitude", longitude);
         formData.append("latitude", latitude);
-        formData.append("cityId", cityId);
-        formData.append("cityName", cityName);
-        formData.append("sectorId", sectorId);
-        formData.append("sectorName", sectorName);
-        formData.append("districtId", districtId);
+        formData.append("cityName", selectedCity);
+        formData.append("sectorName", selectedDistrict);
         formData.append("districtName", districtName);
 
         try {
-            const res = await axios.post(API_URL + '/api/add-propert', formData);
+            const res = await axios.post(API_URL + 'api/add-property', formData);
             setMessage(res.success);
         } catch (error) {
             setMessage(error.message);
+            console.log(error.response);
         }
     }
     const handlePriceChange = (e) => {
@@ -113,17 +123,19 @@ const AddProperty = () => {
         window.scroll(0, 0);
     }, [])
 
-    const [selectedCity, setSelectedCity] = useState('');
-    const [selectedDistrict, setSelectedDistrict] = useState('');
 
     const handleCityChange = (event) => {
         setSelectedCity(event.target.value);
+        console.log(event.target.value);
         setSelectedDistrict('');
     };
 
     const handleDistrictChange = (event) => {
         setSelectedDistrict(event.target.value);
     };
+    const handlePicturesChange = event => {
+        setPictures(Array.from(event.target.files))
+    }
     return (
         <section className='my-5 py-4'>
             <div className="add_property my-3 py-5 ">
@@ -146,11 +158,11 @@ const AddProperty = () => {
                         </div>
                         <div className="col-md-12 ">
                             <label for="formFile" className="form-label fw-semibold">Image Principale <span className="text-danger">*</span></label>
-                            <input className="form-control" type="file" id="formFile" name='picture' onChange={(e) => setPicture(e.target.value)} />
+                            <input className="form-control" type="file" id="formFile" name='picture' onChange={(e) => setPicture(e.target.files[0])} />
                         </div>
                         <div className="col-md-12 ">
                             <label for="formFile" className="form-label fw-semibold">Gallery d'images <span className="text-danger">*</span></label>
-                            <input className="form-control" type="file" id="formFile" name='picture' onChange={(e) => setPicture(e.target.value)} multiple />
+                            <input className="form-control" type="file" id="formFile" onChange={(e) => handlePicturesChange(e)} multiple />
                         </div>
                         <div className="col-md-4">
                             <label for="category" className="form-label fw-semibold">Categorie <span className="text-danger">*</span></label>
@@ -204,7 +216,7 @@ const AddProperty = () => {
                         <h5 className='fw-bold mb-4'>Emplacement du logement</h5>
                         <div className="col-md-4">
                             <label for="city" className="form-label fw-semibold">Ville <span className="text-danger">*</span></label>
-                            <select id='city' className='form-select' value={selectedCity} onChange={handleCityChange}>
+                            <select id='city' className='form-select' onChange={handleCityChange}>
                                 <option value="">Sélectionnez une ville</option>
                                 {cities.map(city => (
                                     <option key={city.name} value={city.name}>{city.name}</option>
@@ -212,23 +224,23 @@ const AddProperty = () => {
                             </select>
                         </div>
                         <div className="col-md-4">
-                        <label for="sector" className="form-label fw-semibold">Secteur <span className="text-danger">*</span></label>
-                            {selectedCity? 
-                                <select id="sector" className="form-select" value={selectedDistrict} onChange={handleDistrictChange}>
+                            <label for="sector" className="form-label fw-semibold">Secteur <span className="text-danger">*</span></label>
+                            {selectedCity ?
+                                <select id="sector" className="form-select" onChange={handleDistrictChange}>
                                     <option value="">Sélectionnez un secteur</option>
                                     {cities.find(city => city.name === selectedCity).districts.map(district => (
                                         <option key={district} value={district}>{district}</option>
                                     ))}
                                 </select>
-                            : 
-                            <select id="sector" className="form-select" >
-                                <option value="">Sélectionnez un secteur</option>
-                            </select>
+                                :
+                                <select id="sector" className="form-select" >
+                                    <option value="">Sélectionnez un secteur</option>
+                                </select>
                             }
                         </div>
                         <div className="col-md-4">
                             <label for="quarter" className="form-label fw-semibold">Quartier <span className="text-danger">*</span></label>
-                            <input type="number" className="form-control" name='quarter' id="quarter" value={title} onChange={(e) => setTitle(e.target.value)} required />
+                            <input type="text" className="form-control" name='quarter' id="quarter" value={districtName} onChange={(e) => setDistrictName(e.target.value)} required />
                         </div>
                         <div className="col-md-4">
                             <label for="zip_code" className="form-label fw-semibold">Code postale <span className="text-danger">*</span></label>
@@ -240,12 +252,13 @@ const AddProperty = () => {
                         </div>
                         <div className="col-md-4">
                             <label for="longitude" className="form-label fw-semibold">Longitude <span className="text-danger">*</span></label>
-                            <input type="number" className="form-control" name='longitude' id="longitude" value={longitude} onChange={(e) => setLongitude(e.target.value)} required />
+                            <input type="text" className="form-control" name='longitude' id="longitude" value={longitude} onChange={(e) => setLongitude(e.target.value)} required />
                         </div>
                         <div className="col-md-4">
                             <label for="latitude " className="form-label fw-semibold">Latitude  <span className="text-danger">*</span></label>
-                            <input type="number" className="form-control" name='latitude ' id="latitude " value={latitude} onChange={(e) => setLatitude(e.target.value)} required />
+                            <input type="text" className="form-control" name='latitude ' id="latitude " value={latitude} onChange={(e) => setLatitude(e.target.value)} required />
                         </div>
+                        <div className="text-warning fw-semibold text-center fs-5 mt-3">{message ? <p>{message}</p> : null}</div>
                         <div class="col-12 text-center mt-5">
                             <button type="submit" class="btn btn-warning fw-semibold px-4 shadow-sm col-12 fs-5 py-2">Publier l'annonce</button>
                         </div>

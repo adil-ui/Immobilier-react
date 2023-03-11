@@ -19,37 +19,65 @@ import Categories from './Pages/Dashboard/Categories/Categories';
 import Property from './Pages/Dashboard/Property/Property';
 import User from './Pages/Dashboard/User/User';
 import MyProperties from './Pages/Dashboard/MyProperties/MyProperties';
+import { useContext, useEffect, useState } from 'react';
+import AuthContext from './context/auth-context';
+import LoggedIn from './Components/LoggedIn/LoggedIn';
+import ProtectedRoute from './Components/ProtectedRoute/ProtectedRoute';
 
 function App() {
+  const [user, setUser] = useState();
+  const [userRole, setUserRole] = useState();
+  //const {user, setUser} = useContext(AuthContext)
+
+  useEffect(() => {
+    if (localStorage.getItem('user')) {
+      setUser(JSON.parse(localStorage.getItem('user')));
+    }
+  }, []);
+  useEffect(() => {
+    if (user) {
+        setUserRole(user.role);
+    }
+}, [user])
   return (
-    <>
+    <AuthContext.Provider value={{ user, setUser }}>
       <header>
-        <NavBar /> 
+        <NavBar />
       </header>
       <main>
         <Routes>
-          <Route path='/' element={<Home/>}/>
-          <Route path='/accueil' element={<Home/>}/>
-          <Route path='/connexion' element={<Login/>}/>
-          <Route path='/inscription' element={<Register/>}/>
-          <Route path='/mot-de-passe-oublier' element={<ForgotPassword/>}/>
-          <Route path='/réinitialiser-le-mot-de-passe' element={<ResetPassword/>}/>    
-          <Route path='/contact' element={<Contact/>}/>
-          <Route path='/details' element={<Details/>}/>
-          <Route path='/publier-annonce' element={<AddProperty/>}/>
-          <Route path='/recherche' element={<Search/>}/>
-          <Route path='/dashboard' element={<Aside/>}>
-                <Route path='' element = {<Dashboard />}  />                 
-                <Route path='profile' element = {<Profile />}  />   
-                <Route path='utilisateurs' element = {<User />}  />                 
-                <Route path='categories' element = {<Categories />}  />                 
-                <Route path='annonces' element = {<Property />}  />                 
-                <Route path='mes-annonces' element = {<MyProperties />}  />                                                 
+          <Route path='/' element={<Home />} />
+          <Route path='/accueil' element={<Home />} />
+          <Route path='/connexion' element={<LoggedIn user={user}><Login /></LoggedIn>} />
+          <Route path='/inscription' element={<Register />} />
+          <Route path='/mot-de-passe-oublier' element={<ForgotPassword />} />
+          <Route path='/réinitialiser-le-mot-de-passe/:token' element={<ResetPassword />} />
+          <Route path='/contact' element={<Contact />} />
+          <Route path='/details/:id' element={<Details />} />
+          <Route path='/publier-annonce' element={<ProtectedRoute user={user}><AddProperty /></ProtectedRoute>} />
+          <Route path='/recherche' element={<Search />} />
+          <Route path='/dashboard' element={<ProtectedRoute user={user}><Aside /></ProtectedRoute>}>
+            {userRole === 'admin' ?
+              <>
+                <Route path='' element={<Dashboard />} />
+                <Route path='profile' element={<Profile />} />
+                <Route path='utilisateurs' element={<User />} />
+                <Route path='categories' element={<Categories />} />
+                <Route path='annonces' element={<Property />} />
+                <Route path='mes-annonces' element={<MyProperties />} />
+
+              </>
+              :
+              <>
+                <Route path='' element={<Profile />} />
+                <Route path='mes-annonces' element={<MyProperties />} />
+              </>
+            }
           </Route>
         </Routes>
       </main>
       <Footer />
-    </>
+    </AuthContext.Provider>
   );
 }
 

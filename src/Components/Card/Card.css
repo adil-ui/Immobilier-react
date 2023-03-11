@@ -1,11 +1,14 @@
 .card_container .card_img{
     overflow: hidden;
     border-radius: 0.375rem 0.375rem 0 0;
+    height: 250px;
 
 }
 .card_container .card_img img{
     border-radius: 0.375rem 0.375rem 0 0;
     transition: .8s;
+    height: 100%;
+    width: 100%;
 }
 .card_container .card_img img:hover{
     transform: scale(1.05);

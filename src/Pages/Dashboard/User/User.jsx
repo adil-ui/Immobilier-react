@@ -1,5 +1,23 @@
-
+import { useEffect, useState } from "react"
+import Pagination from "../../../Components/Pagination/Pagination";
+import { API_URL } from "../../../config/constants"
 const User = () => {
+    const [users, setUsers] = useState([])
+    const user = JSON.parse(localStorage.getItem('user'));
+
+    useEffect(() => {
+        fetch(API_URL + "api/list-users/1", {
+            headers: {
+                'Authorization': `Bearer ${user.token}`
+            }
+        })
+            .then(response => response.json())
+            .then(result => {
+                setUsers(result.users);
+            })
+    }, [])
+
+    
     return (
         <section className="col-md-8 col-sm-12 height_100 rounded-3 shadow-sm p-4  bg-white g-0 " >
             <h5 className="fw-semibold mb-4">Liste des utilisateurs</h5>
@@ -16,64 +34,26 @@ const User = () => {
                         </tr>
                     </thead>
                     <tbody className=''>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>Mark</td>
-                            <td>Otto</td>
-                            <td>@mdo</td>
-                            <td>@mdo</td>
-                            <td>@mdo</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">2</th>
-                            <td>Jacob</td>
-                            <td>Thornton</td>
-                            <td>Thornton</td>
-                            <td>Thornton</td>
-                            <td>@fat</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">3</th>
-                            <td >Larry the Bird</td>
-                            <td >Larry the Bird</td>
-                            <td >Larry the Bird</td>
-                            <td>@twitter</td>
-                            <td>@twitter</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">4</th>
-                            <td >Larry the Bird</td>
-                            <td >Larry the Bird</td>
-                            <td >Larry the Bird</td>
-                            <td>@twitter</td>
-                            <td>@twitter</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">5</th>
-                            <td >Larry the Bird</td>
-                            <td >Larry the Bird</td>
-                            <td >Larry the Bird</td>
-                            <td>@twitter</td>
-                            <td>@twitter</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">6</th>
-                            <td >Larry the Bird</td>
-                            <td >Larry the Bird</td>
-                            <td >Larry the Bird</td>
-                            <td>@twitter</td>
-                            <td>@twitter</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">7</th>
-                            <td >Larry the Bird</td>
-                            <td >Larry the Bird</td>
-                            <td >Larry the Bird</td>
-                            <td>@twitter</td>
-                            <td>@twitter</td>
-                        </tr>
+                    {users.map(user => (
+                            <tr>
+                                <th scope="row" className="pt-3">{user.id}</th>
+                                <td><img src={API_URL + user.picture} className="img-fluid rounded-circle" alt="categorie_picture" width='48px ' /></td>
+                                <td className="pt-3">{user.name}</td>
+                                <td className="pt-3">{user.email}</td>
+                                <td className="pt-3">{user.address}</td>
+                                <td className="pt-3">{user.phone}</td>
+                                
+                            </tr>
+                        ))}
+
                     </tbody>
                 </table>
+                <Pagination
+                    setElements={setUsers}
+                    elementName="users"
+                    url={"api/list-users/"}
+                    allElementsUrl={"api/list-users"}
+                />
             </div>
         </section>
     )

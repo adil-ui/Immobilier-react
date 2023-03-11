@@ -26,9 +26,9 @@ const Register = () => {
         try {
           const res = await axios.post(API_URL + "api/register", formData);
           console.log(res.data);
-            navigate('/login');
+            navigate('/connexion');
         } catch (err) {
-            setMessage(err.message);
+            setMessage('Email existe dèja');
             console.log(err.response);
         }
       };

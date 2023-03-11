@@ -1,31 +1,8 @@
-import React from 'react'
 import { NavLink } from 'react-router-dom'
-const navItem = [
-    {
-        content: 'Accueil',
-        href: '/'
-    },
 
-    {
-        content: 'Recherche',
-        href: '/recherche'
-    },
-    {
-        content: 'Contact',
-        href: '/contact'
-    },
-    {
-        content: 'Mon Compte',
-        href: '/connexion'
-    },
-    {
-        content: 'Dashboard',
-        href: '/dashboard'
-    },
-    
-
-]
 const NavBar = () => {
+    const user = JSON.parse(localStorage.getItem('user'));
+
     return (
         <nav className="navbar fixed-top navbar-expand-xl  bg-tranparent " >
             <div className="container " >
@@ -35,17 +12,28 @@ const NavBar = () => {
                 </button>
                 <div className="collapse navbar-collapse " id="navbarSupportedContent">
                     <ul className="navbar-nav mb-2 mb-lg-0 ms-auto" >
-                        {
-                            navItem.map(item => {
-                                return (
-                                    <li className='nav-item me-2 mt-0 mb-1 mt-lg-3' >
-                                        <NavLink className="fontSize18 nav-link text-dark fw-semibold" to={item.href} >{item.content}</NavLink>
-                                    </li>
-                                )
-                            })
+
+                        <li className='nav-item me-2 mt-0 mb-1 mt-lg-3' >
+                            <NavLink className="fontSize18 nav-link text-dark fw-semibold" to='accueil' >Accueil</NavLink>
+                        </li>
+                        <li className='nav-item me-2 mt-0 mb-1 mt-lg-3' >
+                            <NavLink className="fontSize18 nav-link text-dark fw-semibold" to='recherche' >Annonces</NavLink>
+                        </li>
+                        <li className='nav-item me-2 mt-0 mb-1 mt-lg-3' >
+                            <NavLink className="fontSize18 nav-link text-dark fw-semibold" to='contact' >Contact</NavLink>
+                        </li>
+                        {user ?
+                            <li className='nav-item me-2 mt-0 mb-1 mt-lg-3' >
+                                <NavLink className="fontSize18 nav-link text-dark fw-semibold" to='connexion' >Mon compte</NavLink>
+                            </li> 
+                            :
+                            <li className='nav-item me-2 mt-0 mb-1 mt-lg-3' >
+                                <NavLink className="fontSize18 nav-link text-dark fw-semibold" to='connexion' >Se connecter</NavLink>
+                            </li>
                         }
+
                         <li className='nav-item mt-2 mt-lg-3'>
-                            <NavLink className="btn btn-warning fw-semibold   rounded-2 fontSize17 shadow-sm px-3 btn_anim"  to='/publier-annonce'><i class="bi bi-camera-fill me-1 align-midlle fontSize17"></i> Publier une annonce</NavLink>
+                            <NavLink className="btn btn-warning fw-semibold   rounded-2 fontSize17 shadow-sm px-3 btn_anim" to='/publier-annonce'><i class="bi bi-camera-fill me-1 align-midlle fontSize17"></i> Publier une annonce</NavLink>
                         </li>
                     </ul>
                 </div>

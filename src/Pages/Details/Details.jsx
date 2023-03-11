@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import { API_URL } from '../../config/constants';
 import './Details.css'
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -10,16 +10,32 @@ import "swiper/css/free-mode";
 import "swiper/css/navigation";
 import "swiper/css/thumbs";
 
-const imgListe = ["/assets/images/img_1.png", '/assets/images/img_2.png', '/assets/images/img_3.png', '/assets/images/img_4.png',"/assets/images/img_5.jpg"]
+const imgListe = ["/assets/images/img_1.png", '/assets/images/img_2.png', '/assets/images/img_3.png', '/assets/images/img_4.png']
 
 const Details = () => {
     const [thumbsSwiper, setThumbsSwiper] = useState(null);
-
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [message, setMessage] = useState("");
     const [phone, setPhone] = useState("");
     const [notification, setNotification] = useState('');
+    const params = useParams();
+    const [property, setProperty] = useState(null);
+    const [propertyPictures, setPropertyPictures] = useState([]);
+
+    useEffect(() => {
+        fetch(API_URL + 'api/details/' + params.id)
+            .then(response => response.json())
+            .then(result => {
+                console.log(result);
+                setProperty(result.property[0]);
+                setPropertyPictures(result.PropertyPictures);
+
+            })
+    }, [params]);
+
+
+
     const contact = async (e) => {
         e.preventDefault();
         try {
@@ -29,83 +45,83 @@ const Details = () => {
             setNotification(error.data.error)
         }
     };
+
     useEffect(() => {
         window.scroll(0, 0);
     }, [])
     return (
-        <section className='container row my-5 py-5 mx-auto'>
-            <div className='col-lg-8 mx-auto my-4'>
-
-                <div className='imageList border rounded-3 shadow-sm text-center'>
+        <section className='container row my-5 py-4 mx-auto'>
+            <div className='col-lg-8 mx-auto my-4 py-2'>
+                {property && propertyPictures.length > 0 && <div className='imageList border rounded-3 shadow-sm text-center'>
                     <div className='mx-auto mb-3'>
                         <Swiper style={{ "--swiper-navigation-color": "#fff", "--swiper-pagination-color": "#fff", }}
                             loop={true}
                             spaceBetween={10}
                             navigation={true}
-                            thumbs={{ swiper: thumbsSwiper }}
+                            thumbs={{ swiper: thumbsSwiper && !thumbsSwiper.destroyed ? thumbsSwiper : null }}
                             modules={[FreeMode, Navigation, Thumbs]}
                             className="mySwiper2">
 
-                            {imgListe.map(elt => (
-                                <SwiperSlide>
-                                    <img src={elt} alt='img' className='img-fluid' />
+                            {propertyPictures.map(elt => (
+                                <SwiperSlide >
+                                    <img src={API_URL + elt.picture} alt='img' className='img-fluid' />
                                 </SwiperSlide>
                             ))}
                         </Swiper>
                     </div>
                     <Swiper
-                        //onSwiper={setThumbsSwiper}
+                        onSwiper={setThumbsSwiper}
                         loop={true}
                         spaceBetween={10}
-                        slidesPerView={4}
+                        slidesPerView={3}
                         freeMode={true}
                         watchSlidesProgress={true}
                         modules={[FreeMode, Navigation, Thumbs]}
                         className="mySwiper">
-                        {imgListe.map(elt => (
+                        {propertyPictures.map(elt => (
                             <SwiperSlide>
-                                <img src={elt} alt="img" width='140px' />
+                                <img src={API_URL + elt.picture} alt="img" className='img-fluid' />
                             </SwiperSlide>
                         ))}
 
                     </Swiper>
 
-                </div>
+                </div>}
                 <div className='details  border rounded-3 shadow-sm p-4 my-4'>
-                    <span className="text-warning bg-warning px-3 py-1 rounded-5 bg-opacity-25 text-bold">à vendre</span>
-                    <h3 className='text-warning fw-bold my-3'>70.000Dh</h3>
-                    <h3 className='fw-bold'>Real Luxury Family House Villa</h3>
-                    <address className='text-secondary my-4'><i class="bi bi-geo-alt-fill"></i> 1421 San Pedro St, Los Angeles, CA 90015</address>
+                    <span className="text-warning bg-warning px-3 py-1 rounded-5 bg-opacity-25 text-bold">{property?.type}</span>
+                    <h3 className='text-warning fw-bold my-3'>{property?.price} Dh</h3>
+                    <h3 className='fw-bold'>{property?.title}</h3>
+                    <address className='text-secondary my-4'><i class="bi bi-geo-alt-fill"></i> {property?.zip_code}, N° {property?.property_num}, {property?.district.name}, {property?.sector.name}, {property?.city.name}</address>
                     <div className="d-flex align-items-center">
-                        <p className='fontSize17 me-4'><i class="fa-solid fa-bed text-warning me-1 fs-5"></i> <span>6</span> Chambre</p>
-                        <p className='fontSize17 me-4'><i class="fa-solid fa-bath text-warning me-1 fs-5"></i> <span>2</span> S.bain</p>
-                        <p className='fontSize17'><i class="fa-solid fa-vector-square text-warning me-1 fs-5"></i> <span>250</span> m²</p>
+                        <p className='fontSize17 me-4'><i class="fa-solid fa-bed text-warning me-1 fs-5"></i> <span>{property?.bedroom}</span> Chambre</p>
+                        <p className='fontSize17 me-4'><i class="fa-solid fa-bath text-warning me-1 fs-5"></i> <span>{property?.bathroom}</span> S.bain</p>
+                        <p className='fontSize17'><i class="fa-solid fa-vector-square text-warning me-1 fs-5"></i> <span>{property?.area}</span> m²</p>
                     </div>
                 </div>
                 <div className='description  border rounded-3 shadow-sm p-4 pe-5 my-4'>
                     <h3 className='fw-bold'>Details</h3>
                     <div className='row mt-4'>
-                        <p className='col-lg-4 col-md-6  fw-semibold fontSize17'>Type: <span className='text-secondary fw-normal ms-1'>Maison</span></p>
-                        <p className='col-lg-4 col-md-6  fw-semibold fontSize17'>Salon: <span className='text-secondary fw-normal ms-1'>2 Salon</span></p>
-                        <p className='col-lg-4 col-md-6  fw-semibold fontSize17'>Chambre: <span className='text-secondary fw-normal ms-1'>3 Chambre</span></p>
-                        <p className='col-lg-4 col-md-6  fw-semibold fontSize17'>Salle de bain: <span className='text-secondary fw-normal ms-1'>2 salle de bain</span></p>
-                        <p className='col-lg-4 col-md-6  fw-semibold fontSize17'>Etage: <span className='text-secondary fw-normal ms-1'>2 etage</span></p>
-                        <p className='col-lg-4 col-md-6  fw-semibold fontSize17'>Surface: <span className='text-secondary fw-normal ms-1'>250 m²</span></p>
+                        <p className='col-lg-4 col-md-6  fw-semibold fontSize17'>Type: <span className='text-secondary fw-normal ms-1'>{property?.category.name}</span></p>
+                        <p className='col-lg-4 col-md-6  fw-semibold fontSize17'>Salon: <span className='text-secondary fw-normal ms-1'>{property?.living_room} Salon</span></p>
+                        <p className='col-lg-4 col-md-6  fw-semibold fontSize17'>Chambre: <span className='text-secondary fw-normal ms-1'>{property?.bedroom} Chambre</span></p>
+                        <p className='col-lg-4 col-md-6  fw-semibold fontSize17'>Salle de bain: <span className='text-secondary fw-normal ms-1'>{property?.bathroom} salle de bain</span></p>
+                        <p className='col-lg-4 col-md-6  fw-semibold fontSize17'>Etage: <span className='text-secondary fw-normal ms-1'>{property?.floor} etage</span></p>
+                        <p className='col-lg-4 col-md-6  fw-semibold fontSize17'>Surface: <span className='text-secondary fw-normal ms-1'>{property?.area} m²</span></p>
                     </div>
                 </div>
                 <div className='description  border rounded-3 shadow-sm p-4 pe-5 my-4'>
                     <h3 className='fw-bold'>Description</h3>
-                    <p className='mt-3 lh-lg fontSize17'>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Commodi cupiditate facere, voluptatem pariatur ab non laboriosam ullam esse modi? Adipisci numquam a ratione sapiente sint assumenda voluptates modi ab temporibus ipsam minima fugit corrupti nemo doloribus iure tempora, doloremque sit. Iure ipsam quasi voluptates optio, neque eveniet quisquam blanditiis et.</p>
+                    <p className='mt-3 lh-lg fontSize17'>{property?.description}</p>
                 </div>
             </div>
-            <div className='col-lg-4 my-4'>
+            <div className='col-lg-4 my-4 py-2'>
                 <div className='border rounded-3 shadow-sm text-center p-4 mb-4'>
                     <div className='mb-2'>
-                        <img src="/assets/images/avatar.jpg" alt="profile_img" className='rounded-circle ' width='70px' />
+                        <img src={API_URL + property?.user.picture} alt="profile_img" className='rounded-circle ' width='70px' />
                     </div>
                     <div>
-                        <p className='fontSize18 mb-2 fw-semibold'>John Doe</p>
-                        <p className='fontSize18 shadow-sm  fw-semibold mx-4 rounded-2' style={{ backgroundColor: 'rgba(5, 175, 120,0.1)', padding: '12px 0', color: '#05af78' }}><i class="bi bi-telephone-fill"></i> + 212 658 457 328</p>
+                        <p className='fontSize18 mb-2 fw-semibold'>{property?.user.name}</p>
+                        <p className='fontSize18 shadow-sm phone fw-semibold mx-4 rounded-2' style={{ backgroundColor: 'rgba(5, 175, 120,0.1)', padding: '12px 0', color: '#05af78' }}><i class="bi bi-telephone-fill me-2"></i> {property?.user.phone}</p>
                     </div>
                 </div>
                 <div className='border rounded-3 shadow-sm p-4 mb-4'>

@@ -13,6 +13,7 @@ const ForgotPassword = () => {
             setMessage(res.data.success)
         } catch (error) {
             setMessage(error.response.data.error);
+            console.log(error);
         }
 
     }

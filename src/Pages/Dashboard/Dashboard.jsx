@@ -1,6 +1,22 @@
 
+import { useEffect, useState } from 'react';
+import { API_URL } from '../../config/constants';
 import './Dashboard.css'
 const Dashboard = () => {
+    const [users, setUsers] = useState([])
+    const user = JSON.parse(localStorage.getItem('user'));
+
+    useEffect(() => {
+        fetch(API_URL + "api/last-users", {
+            headers: {
+                'Authorization': `Bearer ${user.token}`
+            }
+        })
+            .then(response => response.json())
+            .then(result => {
+                setUsers(result.users);
+            })
+    }, [])
     return (
         <section className="col-md-8 col-sm-12 height_100 g-0 mx-lg-0 mx-md-auto " >
             <div className="row gx-3 col-12 ">
@@ -39,9 +55,11 @@ const Dashboard = () => {
                 </div>
             </div>
             <div >
-                <div class="table-responsive col-12   shadow-sm mytable rounded-3 border mt-3">
+                <h5 className='fw-semibold '>Les derniers inscriptions</h5>
+
+                <div class="table-responsive col-12 bg-white  shadow-sm mytable rounded-3 border mt-3">
                     <table class="table bg-white table-hover  rounded-3  m-0">
-                    <thead>
+                        <thead>
                             <tr>
                                 <th scope="col" className='text-warning'>#</th>
                                 <th scope="col" className='text-warning'>Photo</th>
@@ -52,49 +70,18 @@ const Dashboard = () => {
                             </tr>
                         </thead>
                         <tbody className=''>
-                            <tr>
-                                <th scope="row">1</th>
-                                <td><img src="/assets/images/avatar.jpg" class="img-fluid rounded-circle" alt="" width='47px ' /></td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                                <td>@mdo</td>
-                                <td>@mdo</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">2</th>
-                                <td><img src="/assets/images/avatar.jpg" class="img-fluid rounded-circle" alt="" width='47px ' /></td>
+                            {users.map(user => (
+                                <tr>
+                                    <th scope="row" className="pt-3">{user.id}</th>
+                                    <td><img src={API_URL + user.picture} className="img-fluid rounded-circle" alt="categorie_picture" width='44px ' /></td>
+                                    <td className="pt-3">{user.name}</td>
+                                    <td className="pt-3">{user.email}</td>
+                                    <td className="pt-3">{user.address}</td>
+                                    <td className="pt-3">{user.phone}</td>
 
-                                <td>Thornton</td>
-                                <td>Thornton</td>
-                                <td>Thornton</td>
-                                <td>@fat</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">3</th>
-                                <td><img src="/assets/images/avatar.jpg" class="img-fluid rounded-circle" alt="" width='47px ' /></td>
+                                </tr>
+                            ))}
 
-                                <td >Larry the Bird</td>
-                                <td >Larry the Bird</td>
-                                <td>@twitter</td>
-                                <td>@twitter</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">4</th>
-                                <td><img src="/assets/images/avatar.jpg" class="img-fluid rounded-circle" alt="" width='47px ' /></td>
-
-                                <td >Larry the Bird</td>
-                                <td >Larry the Bird</td>
-                                <td>@twitter</td>
-                                <td>@twitter</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">5</th>
-                                <td><img src="/assets/images/avatar.jpg" class="img-fluid rounded-circle" alt="" width='47px ' /></td>
-                                <td >Larry the Bird</td>
-                                <td >Larry the Bird</td>
-                                <td>@twitter</td>
-                                <td>@twitter</td>
-                            </tr>
                         </tbody>
                     </table>
                 </div>
