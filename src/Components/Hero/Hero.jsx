@@ -1,16 +1,27 @@
+import { useEffect, useState } from 'react';
 import { useTypewriter } from 'react-simple-typewriter'
+import { API_URL } from '../../config/constants';
 
 import './Hero.css'
 const Hero = () => {
+    const [listCategories, setListCategories] = useState([]);
+    useEffect(() => {
+        fetch(API_URL + "api/list-categories")
+            .then(response => response.json())
+            .then(result => {
+                setListCategories(result.categories);
+            })
+    }, [])
     const [text] = useTypewriter({
-        words: ['Appartement', 'Maison', 'Villa', 'Commerciale', 'Bureau'],
+        words:  ['Appartement', 'Maison', 'Villa', 'Commerciale', 'Bureau'],
         loop: 0,
-        typeSpeed : 120,
+        typeSpeed: 120,
         deleteSpeed: 120,
-        delaySpeed : 1500,
-      })
+        delaySpeed: 1500,
+    })
+   
     return (
-        
+
         <section className='hero_section'>
             <div className='hero-back'></div>
             <section className='hero col-lg-11 col-11'>
@@ -99,8 +110,8 @@ const Hero = () => {
                 </div>
             </section>
         </section>
-      
-       
+
+
     )
 }
 

@@ -32,8 +32,7 @@ const Details = () => {
                 setPropertyPictures(result.PropertyPictures);
 
             })
-    }, [params]);
-
+    }, []);
 
 
     const contact = async (e) => {
@@ -62,9 +61,9 @@ const Details = () => {
                             modules={[FreeMode, Navigation, Thumbs]}
                             className="mySwiper2">
 
-                            {propertyPictures.map(elt => (
+                            {[property, ...propertyPictures].map(elt => (
                                 <SwiperSlide >
-                                    <img src={API_URL + elt.picture} alt='img' className='img-fluid' />
+                                    <img src={API_URL + elt.picture} alt='img' className='img-fluid rounded-top-3' />
                                 </SwiperSlide>
                             ))}
                         </Swiper>
@@ -78,7 +77,7 @@ const Details = () => {
                         watchSlidesProgress={true}
                         modules={[FreeMode, Navigation, Thumbs]}
                         className="mySwiper">
-                        {propertyPictures.map(elt => (
+                        {[property, ...propertyPictures].map(elt => (
                             <SwiperSlide>
                                 <img src={API_URL + elt.picture} alt="img" className='img-fluid' />
                             </SwiperSlide>
@@ -91,7 +90,7 @@ const Details = () => {
                     <span className="text-warning bg-warning px-3 py-1 rounded-5 bg-opacity-25 text-bold">{property?.type}</span>
                     <h3 className='text-warning fw-bold my-3'>{property?.price} Dh</h3>
                     <h3 className='fw-bold'>{property?.title}</h3>
-                    <address className='text-secondary my-4'><i class="bi bi-geo-alt-fill"></i> {property?.zip_code}, N° {property?.property_num}, {property?.district.name}, {property?.sector.name}, {property?.city.name}</address>
+                    <address className='text-secondary my-4 fontSize18'><i class="bi bi-geo-alt-fill text-danger"></i> {property?.zip_code}, N° {property?.property_num}, {property?.district.name}, {property?.sector.name}, {property?.city.name}</address>
                     <div className="d-flex align-items-center">
                         <p className='fontSize17 me-4'><i class="fa-solid fa-bed text-warning me-1 fs-5"></i> <span>{property?.bedroom}</span> Chambre</p>
                         <p className='fontSize17 me-4'><i class="fa-solid fa-bath text-warning me-1 fs-5"></i> <span>{property?.bathroom}</span> S.bain</p>
@@ -102,11 +101,11 @@ const Details = () => {
                     <h3 className='fw-bold'>Details</h3>
                     <div className='row mt-4'>
                         <p className='col-lg-4 col-md-6  fw-semibold fontSize17'>Type: <span className='text-secondary fw-normal ms-1'>{property?.category.name}</span></p>
-                        <p className='col-lg-4 col-md-6  fw-semibold fontSize17'>Salon: <span className='text-secondary fw-normal ms-1'>{property?.living_room} Salon</span></p>
-                        <p className='col-lg-4 col-md-6  fw-semibold fontSize17'>Chambre: <span className='text-secondary fw-normal ms-1'>{property?.bedroom} Chambre</span></p>
-                        <p className='col-lg-4 col-md-6  fw-semibold fontSize17'>Salle de bain: <span className='text-secondary fw-normal ms-1'>{property?.bathroom} salle de bain</span></p>
-                        <p className='col-lg-4 col-md-6  fw-semibold fontSize17'>Etage: <span className='text-secondary fw-normal ms-1'>{property?.floor} etage</span></p>
-                        <p className='col-lg-4 col-md-6  fw-semibold fontSize17'>Surface: <span className='text-secondary fw-normal ms-1'>{property?.area} m²</span></p>
+                        <p className='col-lg-4 col-md-6  fw-semibold fontSize17'>Salon: <span className='text-secondary fw-normal ms-1'>{property?.living_room} </span></p>
+                        <p className='col-lg-4 col-md-6  fw-semibold fontSize17'>Chambre: <span className='text-secondary fw-normal ms-1'>{property?.bedroom} </span></p>
+                        <p className='col-lg-4 col-md-6  fw-semibold fontSize17'>Salle de bain: <span className='text-secondary fw-normal ms-1'>{property?.bathroom} </span></p>
+                        <p className='col-lg-4 col-md-6  fw-semibold fontSize17'>Etage: <span className='text-secondary fw-normal ms-1'>{property?.floor} </span></p>
+                        <p className='col-lg-4 col-md-6  fw-semibold fontSize17'>Surface: <span className='text-secondary fw-normal ms-1'>{property?.area}</span></p>
                     </div>
                 </div>
                 <div className='description  border rounded-3 shadow-sm p-4 pe-5 my-4'>

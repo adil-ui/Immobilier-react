@@ -150,7 +150,7 @@ const AddProperty = () => {
                         <h5 className='fw-bold mb-4'>Details du logement</h5>
                         <div className="col-md-12">
                             <label for="title" className="form-label fw-semibold">Titre <span className="text-danger">*</span></label>
-                            <input type="text" className="form-control" id="title" name='title' value={title} onChange={(e) => setTitle(e.target.value)} required />
+                            <input type="text" className="form-control" id="title" name='title' value={title} onChange={(e) => setTitle(e.target.value.toUpperCase())} required />
                         </div>
                         <div >
                             <label className="form-label fw-semibold">Description <span className="text-danger">*</span></label>
@@ -209,7 +209,7 @@ const AddProperty = () => {
                         </div>
                         <div className="col-md-4">
                             <label for="building_date" className="form-label fw-semibold">Date de construction</label>
-                            <input type="number" className="form-control" name='building_date' id="building_date" Value={buildingDate} onChange={(e) => setBuildingDate(e.target.value)} />
+                            <input type="date" className="form-control" name='building_date' id="building_date" Value={buildingDate} onChange={(e) => setBuildingDate(e.target.value)} />
                         </div>
                     </div>
                     <div className='row g-4 shadow-sm border rounded-4 px-4 pt-2 pb-5 mt-4'>

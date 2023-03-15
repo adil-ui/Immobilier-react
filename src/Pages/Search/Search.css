@@ -23,8 +23,3 @@
     border: none !important;
 }
 
-.aside {
-    position: -webkit-sticky;
-    position: sticky !important;
-    top: 0;
-}

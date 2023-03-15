@@ -40,11 +40,11 @@ const Register = () => {
                     <h3 className='text-center fw-bold mb-4 pb-2 text-warning'>Inscrivez-vous</h3>
                     <div class=" col-md-12 mb-2 ">
                         <label class="form-label fw-semibold">Nom et Prénom <span class="text-danger">*</span></label>
-                        <input type="text" class="form-control" name='name' value={name} onChange={(e) => setName(e.target.value)} required />
+                        <input type="text" class="form-control" name='name'  onChange={(e) => setName(e.target.value)} required />
                     </div>
                     <div class=" col-md-12 mb-2 ">
                         <label class="form-label fw-semibold">Téléphone <span class="text-danger">*</span></label>
-                        <input type="tel" class="form-control" name='phone' value={phone} onChange={(e) => setPhone(e.target.value)} required />
+                        <input type="tel" class="form-control" name='phone'  onChange={(e) => setPhone(e.target.value)} required />
                     </div>
                     <div class="col-md-12 mb-2">
                         <label for="formFile" class="form-label fw-semibold">Photo</label>
@@ -52,21 +52,22 @@ const Register = () => {
                     </div>
                     <div class=" col-md-12 mb-2 ">
                         <label class="form-label fw-semibold">Addresse <span class="text-danger">*</span></label>
-                        <input type="text" class="form-control" name='address' value={address} onChange={(e) => setAddress(e.target.value)} required />
+                        <input type="text" class="form-control" name='address'  onChange={(e) => setAddress(e.target.value)} required />
                     </div>
                     <div class=" col-md-6 mb-2">
                         <label class="form-label fw-semibold">Email <span class="text-danger">*</span></label>
-                        <input type="email" class="form-control" name='email' value={email} onChange={(e) => setEmail(e.target.value)} required />
+                        <input type="email" class="form-control" name='email'  onChange={(e) => setEmail(e.target.value)} required />
                     </div>
                     <div class="col-md-6 mb-2">
                         <label class="form-label fw-semibold">Mot de passe <span class="text-danger">*</span></label>
-                        <input type="password" class="form-control" name='password' value={password} onChange={(e) => setPassword(e.target.value)} required />
+                        <input type="password" class="form-control" name='password'  onChange={(e) => setPassword(e.target.value)} required />
                     </div>
-                    {message ? <div className="message text-warning"><p>{message}</p></div> : null}
+                    {message && <div className="message text-warning"><p>{message}</p></div> }
                     <div class="col-md-12 mb-2 mt-3 ">
                         <button type="submit" class="btn btn-warning fw-semibold col-12 px-4">Envoyer</button>
                     </div>
                 </form>
+
             </div>
 
         </section>

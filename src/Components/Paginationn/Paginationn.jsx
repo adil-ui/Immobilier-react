@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { API_URL } from '../../config/constants';
 import './Paginationn.css'
 
@@ -8,6 +8,7 @@ const ITEMS_PER_PAGE = 5;
 const Pagination = ({ setElements, elementName, url, allElementsUrl }) => {
     const [currentPage, setCurrentPage] = useState(1);
     const [numberPages, setNumberPages] = useState(1);
+
 
     useEffect(() => {
         axios.get(API_URL + allElementsUrl)
@@ -47,7 +48,7 @@ const Pagination = ({ setElements, elementName, url, allElementsUrl }) => {
     };
 
     return (
-        <nav aria-label="..." className='mt-4 d-flex justify-content-center  shadow-none  '>
+        <nav aria-label="..." className='mt-4 d-flex justify-content-center bg-transparent shadow-none  '>
             <ul className="pagination ">
                 <li className={`page-item ${currentPage === 1 ? "disabled" : ""}`}>
                     <span onClick={previous} class="page-link">Previous</span>
