@@ -1,5 +1,7 @@
 import { NavLink } from 'react-router-dom'
 import { API_URL } from '../../config/constants';
+import number_formatPhp from 'number_format-php'
+
 import './Card.css'
 const Card = ({ elt }) => {
     return (
@@ -7,7 +9,7 @@ const Card = ({ elt }) => {
             <div className="card border-0">
                 <div className='card_img position-relative '>
                     <NavLink to={`/details/${elt.id}`}><img src={API_URL + elt.picture} alt="user_image" className="" /></NavLink>
-                    <h4 className=" fw-bolder position-absolute bottom-0 text-light ms-3 mb-2" >{elt.price} Dh</h4>
+                    <h4 className=" fw-bolder position-absolute bottom-0 text-light ms-3 mb-2" >{number_formatPhp(elt.price,2,","," ") } Dh</h4>
                     <p className='fw-bolder position-absolute top-0 py-1 px-3 rounded-5 end-0 text-light mt-2 me-2 bg-warning text-dark'>{elt.type}</p>
                 </div>
                 <div>

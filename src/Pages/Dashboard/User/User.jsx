@@ -19,7 +19,7 @@ const User = () => {
 
     
     return (
-        <section className="col-md-8 col-sm-12 height_100 rounded-3 shadow-sm p-4  bg-white g-0 " >
+        <section className="col-md-8 col-10 mx-md-0 mx-auto height_100 rounded-3 shadow-sm p-4  bg-white g-0 " >
             <h5 className="fw-semibold mb-4">Liste des utilisateurs</h5>
             <div class="table-responsive col-12  mx-auto  mytable rounded-3  mt-3">
                 <table class="table bg-white table-hover  rounded-3  m-0">

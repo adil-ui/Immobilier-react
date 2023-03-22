@@ -46,6 +46,48 @@ const cities = [
         name: 'Tanger',
         districts: ['Al Amal', 'Beni Makada', 'Iberia', 'Médina', 'Moujahidine', 'Malabata'],
     },
+    {
+        name: 'Meknes',
+        districts: ['Médina', 'Hamria', 'Bassatine', 'Hay Salam', 'Zitoune']
+    },
+    {
+        name: 'Tétouan',
+        districts: ['El Hana', 'Hassania', 'El Mandar Al Jadid', 'Souani']
+    },
+    {
+        name: 'Beni Mellal',
+        districts: ['Ville Nouvelle', 'Hay Salam', 'Oulad Yaich', 'Ain Asserdoun']
+    },
+
+    {
+        name: 'El Jadida',
+        districts: ['Cité Portugaise', 'Hay Salam', 'Sidi Bouzid', 'Moulay Abdallah']
+    },
+    {
+        name: 'Essaouira',
+        districts: ['Médina', 'Hay Salam', 'Tassila', 'Ahl Agadir']
+    },
+    {
+        name: 'Tiznit',
+        districts: ['Hay Tiznit', 'Aït Baha', 'Ifri', 'Aït Amira']
+    },
+    {
+        name: 'Dakhla',
+        districts: ['Hay Essalam', 'Al Moussallah', 'El Inbiâat', 'Al Wifaq']
+    },
+    {
+        name: 'Laâyoune',
+        districts: ['Hay Essalam', 'Hay El Wifak', 'Marsa', 'Dchiera']
+    },
+    {
+        name: 'Taroudant',
+        districts: ['Hay El Wahda', 'Assaka', 'El Mouahidine', 'Médina']
+    },
+    {
+        name: 'Nador',
+        districts: ['Ville Nouvelle', 'Al Kods', 'Médina', 'Béni Ansar']
+    },
+
 ];
 const AddProperty = () => {
     const [title, setTitle] = useState('');
@@ -70,12 +112,21 @@ const AddProperty = () => {
     const [districtName, setDistrictName] = useState('');
     const [userId, setUserId] = useState('');
     const [message, setMessage] = useState('');
-    const { user, setUser } = useContext(AuthContext);
+    const { user } = useContext(AuthContext);
+    const [listCategories, setListCategories] = useState([]);
+
     useEffect(() => {
         if (user) {
             setUserId(user.id);
         }
     }, [user])
+    useEffect(() => {
+        fetch(API_URL + "api/list-categories")
+            .then(response => response.json())
+            .then(result => {
+                setListCategories(result.categories);
+            })
+    }, [])
     const submit = async (e) => {
         e.preventDefault();
         const formData = new FormData();
@@ -143,7 +194,7 @@ const AddProperty = () => {
                     <h2 className='text-white fw-bolder fs-1'>Publier une annonce</h2>
                 </div>
             </div>
-            <div className='col-md-6 mx-auto'>
+            <div className='col-md-6 col-10  mx-auto'>
                 <h3 className='fw-bolder text-center my-5'>Remplissez le formulaire</h3>
                 <form className="" onSubmit={submit}>
                     <div className='row g-4 shadow-sm border rounded-4 px-4 pt-2 pb-5'>
@@ -168,11 +219,11 @@ const AddProperty = () => {
                             <label for="category" className="form-label fw-semibold">Categorie <span className="text-danger">*</span></label>
                             <select id="category" name='category' className="form-select" onChange={(e) => setCategoryId(e.target.value)} required>
                                 <option selected disabled>---</option>
-                                <option value='1'>Appartement</option>
-                                <option value='2'>Maison</option>
-                                <option value='3'>Villa</option>
-                                <option value='4'>Commerciale</option>
-                                <option value='5'>Bureau</option>
+                                {listCategories.map(categorie => (
+                                    <option value={categorie.id}>{categorie.name}</option>
+
+                                ))}
+
                             </select>
                         </div>
                         <div className="col-md-4">
@@ -258,7 +309,7 @@ const AddProperty = () => {
                             <label for="latitude " className="form-label fw-semibold">Latitude  <span className="text-danger">*</span></label>
                             <input type="text" className="form-control" name='latitude ' id="latitude " value={latitude} onChange={(e) => setLatitude(e.target.value)} required />
                         </div>
-                        <div className="text-warning fw-semibold text-center fs-5 mt-3">{message ? <p>{message}</p> : null}</div>
+                        <div className="text-warning fw-semibold text-center fs-5 mt-3">{message && <p>{message}</p>}</div>
                         <div class="col-12 text-center mt-5">
                             <button type="submit" class="btn btn-warning fw-semibold px-4 shadow-sm col-12 fs-5 py-2">Publier l'annonce</button>
                         </div>

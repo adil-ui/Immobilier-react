@@ -55,14 +55,13 @@ a{
         font-size: 40px;
     }
 
-    .hero_section{
-        height: 115vh;
-    }
+
     .navbar-collapse{
         background-color: white !important;
         padding: 15px 0px 15px 25px;
         box-shadow: 0 0 5rem rgba(99, 99, 99, 0.416);
         border-radius: 10px;
+        margin-top: 15px
     }
  }
 

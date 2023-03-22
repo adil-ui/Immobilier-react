@@ -4,6 +4,8 @@ import { API_URL } from "../../../config/constants";
 
 
 const Categories = () => {
+    const user = JSON.parse(localStorage.getItem('user'));
+
     const [name, setName] = useState('');
     const [picture, setPicture] = useState('');
     const [listCategories, setListCategories] = useState([]);
@@ -31,11 +33,21 @@ const Categories = () => {
         }
 
     }
+    const deleteCategory = (id) => {
+        axios.delete(API_URL + 'api/delete-category/' + id, {
+            headers: {
+                Authorization: `Bearer ${user.token}`
+            }
+        })
+            .then(() => {
+                window.location.reload();
+            });
+    }
     return (
-        <section className="col-md-8 col-sm-12  rounded-3 shadow-sm p-4  bg-white g-0 height_100" >
+        <section className="col-md-8 col-10 mx-md-0 mx-auto  rounded-3 shadow-sm p-4  bg-white g-0 height_100" >
             <div className="d-flex justify-content-between align-items-center mb-5">
                 <h5 className="fw-semibold pt-1">Liste des categories</h5>
-                <button className="btn btn-success fw-semibold" data-bs-toggle="modal" data-bs-target="#exampleModal">+ Ajout categorie</button>
+                <button className="btn btn-success fw-semibold bg-opacity-50" data-bs-toggle="modal" data-bs-target="#exampleModal">+ Ajout categorie</button>
             </div>
             <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
@@ -79,13 +91,15 @@ const Categories = () => {
                     <tbody className=''>
                         {listCategories.map(categorie => (
                             <tr>
-                                <th scope="row" className="pt-3">{categorie.id}</th>
+                                <th scope="row" className="align-middle">{categorie.id}</th>
                                 <td>
-                                    <img src={API_URL + categorie.picture} className="img-fluid rounded-circle" alt="categorie_picture" width='45px ' />
+                                    <img src={API_URL + categorie.picture} className="img-fluid rounded-circle align-middle" alt="categorie_picture" width='45px ' />
                                 </td>
-                                <td className="pt-3">{categorie.name}</td>
-                                <td className="pt-2">
-                                    <button className="btn btn-danger"><i class="bi bi-trash3-fill"></i> Delete</button>
+                                <td className="align-middle">{categorie.name}</td>
+                                <td className="align-middle">
+                                    <button className="btn btn-danger"><i class="bi bi-trash3-fill"></i> </button>
+                                    <button onClick={() => deleteCategory(categorie.id)} className="btn btn-danger"><i class="bi bi-trash3-fill"></i>Delete</button>
+
                                 </td>
 
                             </tr>

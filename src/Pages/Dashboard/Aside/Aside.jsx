@@ -40,7 +40,7 @@ const Aside = () => {
     return (
         <section className="dashboard ">
             <div className="row container mx-auto py-4 g-0 d-flex justify-content-between">
-                <aside className="col-lg-3 col-md-4 col-sm-12 mb-5">
+                <aside className="col-lg-3 col-md-4 col-10 mx-md-0 mx-auto mb-5 ">
                     <div className="py-1 rounded-3 shadow-sm bg-white">
                         <div className="text-center my-4">
                             <img src={API_URL + userPicture} className="img-fluid avater rounded-circle mb-3" alt="" width='80px ' />

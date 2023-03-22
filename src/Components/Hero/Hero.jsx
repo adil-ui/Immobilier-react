@@ -1,10 +1,22 @@
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { useTypewriter } from 'react-simple-typewriter'
 import { API_URL } from '../../config/constants';
 
 import './Hero.css'
+
+
 const Hero = () => {
     const [listCategories, setListCategories] = useState([]);
+    const [cities, setCities] = useState([]);
+
+    const [text] = useTypewriter({
+        words: ['Appartement', 'Maison', 'Villa', 'Commerciale', 'Bureau'],
+        loop: 0,
+        typeSpeed: 120,
+        deleteSpeed: 120,
+        delaySpeed: 1500,
+    })
     useEffect(() => {
         fetch(API_URL + "api/list-categories")
             .then(response => response.json())
@@ -12,19 +24,18 @@ const Hero = () => {
                 setListCategories(result.categories);
             })
     }, [])
-    const [text] = useTypewriter({
-        words:  ['Appartement', 'Maison', 'Villa', 'Commerciale', 'Bureau'],
-        loop: 0,
-        typeSpeed: 120,
-        deleteSpeed: 120,
-        delaySpeed: 1500,
-    })
-   
+    useEffect(() => {
+        fetch(API_URL + 'api/list-cities')
+            .then(response => response.json())
+            .then(result => {
+                setCities(result.cities);
+            })
+    }, [])
     return (
 
         <section className='hero_section'>
             <div className='hero-back'></div>
-            <section className='hero col-lg-11 col-11'>
+            <section className='hero  col-11'>
                 <div className='hero-desc text-center text-light '>
                     <h1 className='mb-4 fontSize60 fw-semibold'> Recherchez votre prochaine <span className='text-warning'>{text}</span>  </h1>
                     <h2 className='col-lg-6  col-12  lh-base mx-auto fw-semibold'>Trouvez les nouveaux biens et les biens vedettes situés dans votre pays.</h2>
@@ -36,35 +47,11 @@ const Hero = () => {
                                 <div class="form-floating ">
                                     <select class="form-select" id="ville" style={{ height: '60px' }}>
                                         <option selected>Ouvrez menu de sélection</option>
-                                        <option value="2"> </option>
-                                        <option value="3" >Tout le Maroc</option>
-                                        <option style={{ backgroundColor: "#dcdcc3;" }} value="0" disabled="disabled">-- AUTRES VILLES --</option>
-                                        <option id="searcharea_expanded_fisrt_option" value="1005"> Casablanca</option>
-                                        <option value="1013"> Agadir</option>
-                                        <option value="1017"> Al Hocïema</option>
-                                        <option value="1014"> Béni Mellal</option>
-                                        <option value="1007"> El Jadida</option>
-                                        <option value="1018"> Errachidia</option>
-                                        <option value="1003"> Fès</option>
-                                        <option value="1004"> Kénitra</option>
-                                        <option value="1019"> Khénifra</option>
-                                        <option value="1001"> Khouribga</option>
-                                        <option value="1020"> Larache</option>
-                                        <option value="1008"> Marrakech</option>
-                                        <option value="1009"> Meknès</option>
-                                        <option value="1021"> Nador</option>
-                                        <option value="1022"> Ouarzazate</option>
-                                        <option value="1010"> Oujda</option>
-                                        <option value="1012"> Rabat</option>
-                                        <option value="1002"> Safi</option>
-                                        <option value="1023"> Settat</option>
-                                        <option value="1006"> Salé</option>
-                                        <option value="1015"> Tanger</option>
-                                        <option value="1016"> Taza</option>
-                                        <option value="1011"> Tétouan</option>
-                                        <option value="other" style={{ color: "red" }}>Choisir une autre ville...</option>
+                                        {cities.map(city => (
+                                            <option value={city.name}>{city.name}</option>
+                                        ))}
                                     </select>
-                                    <label for="ville">Ville</label>
+                                    <label for="ville">Villes</label>
 
                                 </div>
                             </div>
@@ -73,15 +60,11 @@ const Hero = () => {
                                 <div class="form-floating">
                                     <select class="form-select" id="property" style={{ height: '60px' }}>
                                         <option selected>Ouvrez menu de sélection</option>
-                                        <option value="" data-select2-id="2">&nbsp;</option>
-                                        <option value="1">All categories</option>
-                                        <option value="2">Apartment</option>
-                                        <option value="3">Villas</option>
-                                        <option value="4">Commercial</option>
-                                        <option value="5">Offices</option>
-                                        <option value="6">Garage</option>
+                                        {listCategories.map(category => (
+                                            <option value={category.name} >{category.name}</option>
+                                        ))}
                                     </select>
-                                    <label for="property">Type de propriété</label>
+                                    <label for="property">Categories</label>
                                 </div>
                             </div>
 
@@ -89,14 +72,10 @@ const Hero = () => {
                                 <div class="form-floating">
                                     <select class="form-select " id="price" style={{ height: '60px' }} >
                                         <option selected>Ouvrez menu de sélection</option>
-                                        <option value="" data-select2-id="4">&nbsp;</option>
-                                        <option value="1">From 40,000 To 10m</option>
-                                        <option value="2">From 60,000 To 20m</option>
-                                        <option value="3">From 70,000 To 30m</option>
-                                        <option value="3">From 80,000 To 40m</option>
-                                        <option value="3">From 90,000 To 50m</option>
+                                        <option value='À VENDRE'>À VENDRE</option>
+                                        <option value='À LOUER'>À LOUER</option>
                                     </select>
-                                    <label for="price ">Plage de prix</label>
+                                    <label for="price ">Types</label>
                                 </div>
                             </div>
 
@@ -108,6 +87,7 @@ const Hero = () => {
                         </div>
                     </div>
                 </div>
+
             </section>
         </section>
 

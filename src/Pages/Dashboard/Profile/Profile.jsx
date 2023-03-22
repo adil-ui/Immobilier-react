@@ -12,6 +12,7 @@ const Profile = () => {
   const [userPicture, setUserPicture] = useState('');
   const [userEmail, setUserEmail] = useState('');
   const [userPassword, setUserPassword] = useState('');
+  const [token, setToken] = useState('');
   const [message, setMessage] = useState('');
   useEffect(() => {
     if (user) {
@@ -33,24 +34,28 @@ const Profile = () => {
     formData.append("phone", userPhone);
     formData.append("email", userEmail);
     formData.append("password", userPassword);
+    setToken(user.token)
+
     try {
-      const response = await axios.post(API_URL + 'api/profile/' + userId, formData, {
+      const response = await axios.post(API_URL + 'api/edit-user/' + userId, formData, {
         headers: {
           Authorization: `Bearer ${user.token}`
         }
       });
+      console.log(user.token);
+      response.data.token = user.token;
       setMessage(response.data.success);
-      setUser(response.data.user);
-      localStorage.setItem("user", JSON.stringify(response.data.user));
+      setUser({...response.data.user,token:user.token});
+      localStorage.setItem("user", JSON.stringify(user));
     } catch (error) {
       setMessage(error.message);
     }
 
   }
   return (
-    <div className=" col-md-8 col-sm-12 bg-white  py-4 rounded-2 shadow-sm height_100" >
+    <div className=" col-md-8 col-10 mx-md-0 mx-auto bg-white  py-4 rounded-2 shadow-sm height_100" >
       <form className="row g-3 col-11 mx-auto " onSubmit={updateUser} encType="multipart/form-data">
-      <h5 className="fw-semibold mb-4">Mes informations</h5>
+        <h5 className="fw-semibold mb-4">Mes informations</h5>
         <div className="col-md-6">
           <label className="form-label fw-semibold">Name</label>
           <input type="text" className="form-control" name='name' value={userName} onChange={(e) => setUserName(e.target.value)} required />
@@ -77,7 +82,7 @@ const Profile = () => {
         </div>
         <div className="text-warning fw-semibold text-center fs-5 ">{message ? <p>{message}</p> : null}</div>
         <div className="col-12 d-flex justify-content-end">
-          <button type="submit" className="btn btn-warning px-4 fw-semibold">Update</button>
+          <button type="submit" className="btn btn-warning px-4 fw-semibold">Enregistrer modification</button>
         </div>
       </form>
     </div>

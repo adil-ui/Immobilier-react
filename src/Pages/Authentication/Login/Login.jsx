@@ -8,7 +8,7 @@ import validator from 'validator';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 const notify = () => {
-    toast.error('🦄 Wow so easy!', {
+    toast.success('Bienvenu', {
         position: "top-center",
         autoClose: 5000,
         hideProgressBar: false,
@@ -39,7 +39,6 @@ const Login = () => {
             emailRef.current.style.border = "1px solid red";
         }
     }
-
     const clickLogin = async (e) => {
         e.preventDefault();
         const formData = new FormData();

@@ -10,7 +10,7 @@
     height: 100%;
     width: 100%;
 }
-.card_container .card_img img:hover{
+.card_container:hover .card_img img{
     transform: scale(1.05);
 }
 .card_container .card{

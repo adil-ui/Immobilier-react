@@ -21,6 +21,7 @@
         font-size: 38px !important;
     }
     .hero{
+        top: 40%;
         z-index: 10;
     }
     .hero select{
@@ -34,10 +35,10 @@
  }
  @media (max-width: 900px) { 
     .fontSize60{
-        font-size: 42px;
+        font-size: 38px;
     }
     .hero{
-        transform: translate(-50%, -30%);
+        transform: translate(-50%, -33%);
         z-index: 10;
     }
     .hero select{
@@ -50,7 +51,7 @@
         font-size: 50px;
     }
     .hero{
-        transform: translate(-50%, -30%);
+        top: 42%;
         z-index: 10;
     }
     .hero select{

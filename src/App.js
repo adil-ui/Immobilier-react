@@ -19,10 +19,11 @@ import Categories from './Pages/Dashboard/Categories/Categories';
 import Property from './Pages/Dashboard/Property/Property';
 import User from './Pages/Dashboard/User/User';
 import MyProperties from './Pages/Dashboard/MyProperties/MyProperties';
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import AuthContext from './context/auth-context';
 import LoggedIn from './Components/LoggedIn/LoggedIn';
 import ProtectedRoute from './Components/ProtectedRoute/ProtectedRoute';
+import EditMyProperty from './Pages/Dashboard/MyProperties/EditMyProperty';
 
 function App() {
   const [user, setUser] = useState();
@@ -55,7 +56,7 @@ function App() {
           <Route path='/contact' element={<Contact />} />
           <Route path='/details/:id' element={<Details />} />
           <Route path='/publier-annonce' element={<ProtectedRoute user={user}><AddProperty /></ProtectedRoute>} />
-          <Route path='/recherche' element={<Search />} />
+          <Route path='/annonces' element={<Search />} />
           <Route path='/dashboard' element={<ProtectedRoute user={user}><Aside /></ProtectedRoute>}>
             {userRole === 'admin' ?
               <>
@@ -64,6 +65,7 @@ function App() {
                 <Route path='utilisateurs' element={<User />} />
                 <Route path='categories' element={<Categories />} />
                 <Route path='annonces' element={<Property />} />
+                <Route path='modifier-mon-annonce/:id' element={<EditMyProperty />} />
                 <Route path='mes-annonces' element={<MyProperties />} />
 
               </>

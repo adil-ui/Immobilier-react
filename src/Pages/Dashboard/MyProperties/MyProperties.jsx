@@ -1,4 +1,6 @@
+import axios from "axios";
 import { useEffect, useState } from "react";
+import { NavLink } from "react-router-dom";
 import Pagination from "../../../Components/Pagination/Pagination";
 import { API_URL } from "../../../config/constants";
 
@@ -18,8 +20,18 @@ const MyProperties = () => {
                 setAnnonces(result.properties);
             })
     }, [])
+    const deleteProperty = (id) => {
+        axios.delete(API_URL + 'api/delete-property/' + id, {
+            headers: {
+                Authorization: `Bearer ${user.token}`
+            }
+        })
+            .then(() => {
+                window.location.reload();
+            });
+    }
     return (
-        <section className="col-md-8 col-sm-12 bg-white p-4 pb-2 rounded-2 shadow-sm height_100 position-relative" >
+        <section className="col-md-8 col-10 mx-md-0 mx-auto bg-white p-4 pb-2 rounded-2 shadow-sm height_100 position-relative" >
             <h5 className="fw-semibold mb-4">Liste des logements</h5>
             <div class="table-responsive   mx-auto  mytable rounded-3  mt-4">
                 <table class="table bg-white table-hover  rounded-3  m-0">
@@ -37,17 +49,18 @@ const MyProperties = () => {
                     <tbody className=''>
                         {annonces.map(annonce => (
                             <tr>
-                                <th scope="row" className="pt-3">{annonce.id}</th>
+                                <th scope="row" className="align-middle">{annonce.id}</th>
                                 <td>
                                     <img src={API_URL + annonce.picture} className="img-fluid rounded-circle" alt="property_picture" width='50px' style={{ height: '50px' }} />
                                 </td>
-                                <td className="pt-3">{annonce.title.substring(0, 10)}</td>
-                                <td className="pt-3">{annonce.price} Dh</td>
-                                <td className="pt-3">{annonce.category.name}</td>
-                                <td className="pt-3">{annonce.type}</td>
-                                <td className="pt-2">
-                                    <button className="btn btn-success me-1"><i class="bi bi-pencil-square"></i></button>
-                                    <button className="btn btn-danger"><i class="bi bi-trash3-fill"></i></button>
+                                <td className="align-middle">{annonce.title}</td>
+                                <td className="align-middle">{annonce.price} Dh</td>
+                                <td className="align-middle">{annonce.category.name}</td>
+                                <td className="align-middle">{annonce.type}</td>
+                                <td className="align-middle">
+                                <NavLink to={`/dashboard/modifier-mon-annonce/${annonce.id}`} className="btn btn-success me-1"><i class="bi bi-pencil-square"></i></NavLink>
+
+                                    <button onClick={() => deleteProperty(annonce.id)} className="btn btn-danger"><i class="bi bi-trash3-fill"></i></button>
                                 </td>
                             </tr>
                         ))}

@@ -1,3 +1,4 @@
+import number_formatPhp from 'number_format-php'
 import React from 'react'
 import { NavLink } from 'react-router-dom'
 import { API_URL } from "../../config/constants"
@@ -17,7 +18,7 @@ const Cardd = ({ elt }) => {
                         <div>
                             <span className="text-danger fw-bolder py-2 px-4 rounded-5 bg-opacity-25 me-2 bg-danger">{elt.category?.name}</span>
                         </div>
-                        <h4 className="fw-bolder text-warning ms-3 mb-2" >{elt.price} Dh</h4>
+                        <h4 className="fw-bolder text-warning ms-3 mb-2" >{elt?.type ==='À LOUER' ? number_formatPhp(elt?.price,2,","," ") + ' Dh /Mois' : number_formatPhp(elt?.price,2,","," ")+'Dh'}</h4>
                     </div>
                     <div className='ps-4 mt-5'>
                         <NavLink to={`/details/${elt.id}`}><h5 className="fw-semibold mb-3">{elt.title}</h5></NavLink>

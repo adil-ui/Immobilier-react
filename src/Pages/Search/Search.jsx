@@ -8,10 +8,13 @@ import $ from 'jquery'
 import './Search.css'
 import Paginationn from "../../Components/Paginationn/Paginationn"
 import axios from "axios"
+import PaginationFilter from "../../Components/PaginationFilter/PaginationFilter"
 
 
 const Search = () => {
+    
     const [data, setData] = useState([]);
+    const [result, setResult] = useState(0);
     const [categories, setCategories] = useState([]);
     const [cities, setCities] = useState([]);
     const [category, setCategory] = useState("");
@@ -25,12 +28,15 @@ const Search = () => {
     const [areaMax, setAreaMax] = useState("");
     const [priceMax, setPriceMax] = useState("");
     const [priceMin, setPriceMin] = useState("");
+    const [formData, setFormData] = useState();
+    const [filtered, setFiltered] = useState(false);
 
     useEffect(() => {
         fetch(API_URL + 'api/properties/1')
             .then(response => response.json())
             .then(result => {
                 setData(result.properties);
+                setResult(result.nbrProperties);
             })
     }, [])
     useEffect(() => {
@@ -50,6 +56,7 @@ const Search = () => {
 
     const filter = async (e) => {
         e.preventDefault();
+        setFiltered(true);
         const formData = new FormData();
         formData.append('city', city);
         formData.append('category', category);
@@ -62,14 +69,14 @@ const Search = () => {
         formData.append('areaMax', areaMax);
         formData.append('priceMin', priceMin);
         formData.append('priceMax', priceMax);
-        console.log(city);
+        setFormData(formData);
         try {
             const response = await axios.post(API_URL + 'api/filter-properties', formData)
             setData(response.data.properties)
             console.log(response.data);
 
         } catch (error) {
-            console.log(error.data);
+            console.log(error);
         }
 
     }
@@ -107,9 +114,9 @@ const Search = () => {
     }, [])
     return (
         <section className="search py-4">
-            <div className="container bg-white rounded-3 py-1 shadow-sm   mx-auto">
-                <div className="py-3 d-flex justify-content-between align-items-center">
-                    <div className="fw-semibold"><span>78</span> Résultats</div>
+            <div className="container col-xl-12  col-10  bg-white rounded-3 py-1 shadow-sm   mx-auto">
+                <div className="py-3 d-flex flex-md-row flex-column  justify-content-between align-items-center">
+                    <div className="fw-semibold"><span>{result}</span> Résultats</div>
                     <div>
                         <span className="me-3 fw-semibold">Trier par:</span>
                         <Link onClick={filterByDate} className="me-2 text-warning border-bottom border-warning dateActive active">Date</Link>
@@ -121,7 +128,7 @@ const Search = () => {
                 </div>
             </div>
             <div className="row pb-5 pt-4 container mx-auto g-0">
-                <div className='col-xl-4  ps-0 pe-xl-5 mx-auto aside'>
+                <aside className='col-xl-4 col-10 ps-0 pe-xl-5 mx-auto aside'>
 
                     <form onSubmit={filter} className="shadow-sm  bg-white rounded-3 pb-4 mx-auto">
                         <div className="bg-warning w-100 rounded-top-3 px-3 py-2 mb-3 d-flex justify-content-between align-items-center">
@@ -149,8 +156,8 @@ const Search = () => {
                             <div className="col-xl-12 col-lg-4 col-md-6 col-sm-12 col-12">
                                 <select id="type" name='type' className="form-select" onChange={(e) => setType(e.target.value)}>
                                     <option selected disabled>Type</option>
-                                    <option value='1'>À VENDRE</option>
-                                    <option value='2'>À LOUER</option>
+                                    <option value='À VENDRE'>À VENDRE</option>
+                                    <option value='À LOUER'>À LOUER</option>
                                 </select>
                             </div>
 
@@ -234,17 +241,24 @@ const Search = () => {
 
                         </div>
                     </form>
-                </div>
-                <div className='col-xl-8 mt-xl-0 mt-lg-5 mt-5'>
+                </aside>
+                <div className='col-xl-8 col-10 mx-auto mt-xl-0 mt-lg-5 mt-5'>
                     <div class="col-12">
                         {data?.map(elt => <Cardd elt={elt} key={elt.id} />)}
                     </div>
-                    <Paginationn
+                    {filtered && data.length > 5 && <PaginationFilter
                         setElements={setData}
                         elementName="properties"
-                        url={"api/properties/"}
-                        allElementsUrl={"api/properties"}
-                    />
+                        url={"api/filter-properties-per-page/"}
+                        allElementsUrl={"api/filter-properties"}
+                        formData={formData} />}
+                    {!filtered &&
+                        <Paginationn
+                            setElements={setData}
+                            elementName="properties"
+                            url={"api/properties/"}
+                            allElementsUrl={"api/properties"}
+                        />}
                 </div>
             </div>
         </section>

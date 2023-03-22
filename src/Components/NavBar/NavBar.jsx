@@ -1,14 +1,17 @@
+import { useContext } from 'react';
 import { NavLink } from 'react-router-dom'
+import AuthContext from '../../context/auth-context';
 
 const NavBar = () => {
-    const user = JSON.parse(localStorage.getItem('user'));
+    const { user, setUser } = useContext(AuthContext);
+
 
     return (
-        <nav className="navbar fixed-top navbar-expand-xl  bg-tranparent " >
+        <nav className="navbar fixed-top navbar-expand-lg  bg-tranparent " >
             <div className="container " >
                 <NavLink to="/" className="navbar-brand fw-bolder  " ><img src="/assets/images/logo.png" alt="logo" width="90px" /></NavLink>
-                <button className="navbar-toggler bg-light mb-4 position-absolute top-0 mt-4 end-0 me-4" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span className="navbar-toggler-icon"></span>
+                <button className="navbar-toggler bg-light " type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span className="navbar-toggler-icon "></span>
                 </button>
                 <div className="collapse navbar-collapse " id="navbarSupportedContent">
                     <ul className="navbar-nav mb-2 mb-lg-0 ms-auto" >
@@ -17,7 +20,7 @@ const NavBar = () => {
                             <NavLink className="fontSize18 nav-link text-dark fw-semibold" to='accueil' >Accueil</NavLink>
                         </li>
                         <li className='nav-item me-2 mt-0 mb-1 mt-lg-3' >
-                            <NavLink className="fontSize18 nav-link text-dark fw-semibold" to='recherche' >Annonces</NavLink>
+                            <NavLink className="fontSize18 nav-link text-dark fw-semibold" to='annonces' >Annonces</NavLink>
                         </li>
                         <li className='nav-item me-2 mt-0 mb-1 mt-lg-3' >
                             <NavLink className="fontSize18 nav-link text-dark fw-semibold" to='contact' >Contact</NavLink>

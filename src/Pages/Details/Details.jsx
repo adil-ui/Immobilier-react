@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom'
+import number_formatPhp from 'number_format-php'
 import { API_URL } from '../../config/constants';
 import './Details.css'
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -9,8 +10,9 @@ import "swiper/css";
 import "swiper/css/free-mode";
 import "swiper/css/navigation";
 import "swiper/css/thumbs";
-
-const imgListe = ["/assets/images/img_1.png", '/assets/images/img_2.png', '/assets/images/img_3.png', '/assets/images/img_4.png']
+import dayjs from 'dayjs';
+var localizedFormat = require('dayjs/plugin/localizedFormat')
+dayjs.extend(localizedFormat)
 
 const Details = () => {
     const [thumbsSwiper, setThumbsSwiper] = useState(null);
@@ -18,6 +20,7 @@ const Details = () => {
     const [email, setEmail] = useState("");
     const [message, setMessage] = useState("");
     const [phone, setPhone] = useState("");
+    const [userEmail, setUserEmail] = useState("");
     const [notification, setNotification] = useState('');
     const params = useParams();
     const [property, setProperty] = useState(null);
@@ -29,6 +32,7 @@ const Details = () => {
             .then(result => {
                 console.log(result);
                 setProperty(result.property[0]);
+                setUserEmail(result.property[0].user.email);
                 setPropertyPictures(result.PropertyPictures);
 
             })
@@ -38,7 +42,7 @@ const Details = () => {
     const contact = async (e) => {
         e.preventDefault();
         try {
-            const res = await axios.post(API_URL + 'api/contact', { name, email, phone, message })
+            const res = await axios.post(API_URL + 'api/contact-user', { name, email, phone, message, userEmail })
             setNotification(res.data.success)
         } catch (error) {
             setNotification(error.data.error)
@@ -49,9 +53,9 @@ const Details = () => {
         window.scroll(0, 0);
     }, [])
     return (
-        <section className='container row my-5 py-4 mx-auto'>
+        <section className='container row my-5 py-4 mx-auto gx-2'>
             <div className='col-lg-8 mx-auto my-4 py-2'>
-                {property && propertyPictures.length > 0 && <div className='imageList border rounded-3 shadow-sm text-center'>
+                {property && propertyPictures.length > 0 && <div className='imageList border rounded-3 shadow-sm text-center pb-2'>
                     <div className='mx-auto mb-3'>
                         <Swiper style={{ "--swiper-navigation-color": "#fff", "--swiper-pagination-color": "#fff", }}
                             loop={true}
@@ -87,8 +91,12 @@ const Details = () => {
 
                 </div>}
                 <div className='details  border rounded-3 shadow-sm p-4 my-4'>
-                    <span className="text-warning bg-warning px-3 py-1 rounded-5 bg-opacity-25 text-bold">{property?.type}</span>
-                    <h3 className='text-warning fw-bold my-3'>{property?.price} Dh</h3>
+                    <div className='d-flex justify-content-between align-items-center'>
+                        <span className="text-warning bg-warning px-3 py-1 rounded-5 bg-opacity-25 text-bold">{property?.type}</span>
+                        <i className='text-end '>publier le: {dayjs(property?.created_at).format("L")}</i>
+                    </div>
+  
+                    <h3 className='text-warning fw-bold my-3'>{property?.type ==='À LOUER' ? number_formatPhp(property?.price,2,","," ") + ' Dh /Mois' : number_formatPhp(property?.price,2,","," ")+'Dh'}</h3>
                     <h3 className='fw-bold'>{property?.title}</h3>
                     <address className='text-secondary my-4 fontSize18'><i class="bi bi-geo-alt-fill text-danger"></i> {property?.zip_code}, N° {property?.property_num}, {property?.district.name}, {property?.sector.name}, {property?.city.name}</address>
                     <div className="d-flex align-items-center">
@@ -105,12 +113,12 @@ const Details = () => {
                         <p className='col-lg-4 col-md-6  fw-semibold fontSize17'>Chambre: <span className='text-secondary fw-normal ms-1'>{property?.bedroom} </span></p>
                         <p className='col-lg-4 col-md-6  fw-semibold fontSize17'>Salle de bain: <span className='text-secondary fw-normal ms-1'>{property?.bathroom} </span></p>
                         <p className='col-lg-4 col-md-6  fw-semibold fontSize17'>Etage: <span className='text-secondary fw-normal ms-1'>{property?.floor} </span></p>
-                        <p className='col-lg-4 col-md-6  fw-semibold fontSize17'>Surface: <span className='text-secondary fw-normal ms-1'>{property?.area}</span></p>
+                        <p className='col-lg-4 col-md-6  fw-semibold fontSize17'>Surface: <span className='text-secondary fw-normal ms-1'>{property?.area} m²</span></p>
                     </div>
                 </div>
                 <div className='description  border rounded-3 shadow-sm p-4 pe-5 my-4'>
                     <h3 className='fw-bold'>Description</h3>
-                    <p className='mt-3 lh-lg fontSize17'>{property?.description}</p>
+                    <p className='mt-3 lh-lg fontSize17' style={{textAlign:'justify'}}>{property?.description}</p>
                 </div>
             </div>
             <div className='col-lg-4 my-4 py-2'>
@@ -150,8 +158,9 @@ const Details = () => {
                 </div>
                 <div className='border rounded-3 shadow-sm' style={{ height: '300px' }}>
                     <h4 className='fw-bold m-3 text-center'>Emplacement</h4>
-                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3306.987764131213!2d-6.837296785047434!3d34.0185250269542!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xda76d4ee9e69ded%3A0x148138a74b343466!2s3w%20Academy!5e0!3m2!1sfr!2sma!4v1677440084818!5m2!1sfr!2sma"
-                        className='w-100 h-100  mx-auto' allowfullscreen="" title='map' loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    <iframe width="100%" height="450" id="gmap_canvas" src={`https://maps.google.com/maps?q= ${property?.latitude}, ${property?.longitude} &t=&z=16&ie=UTF8&iwloc=&output=embed`}
+                        title='ma position' allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" className='w-100 h-100 rounded-bottom-3 mx-auto'></iframe>
+
                 </div>
             </div>
         </section>

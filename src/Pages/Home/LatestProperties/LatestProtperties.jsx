@@ -26,7 +26,7 @@ const LatestProtperties = () => {
                     </div>
                 </div>
                 <div className="text-center mt-3">
-                    <Link to='/recherche' className="btn btn-warning shadow py-3 px-4 fw-semibold fontSize18">Voir plus </Link>
+                    <Link to='/annonces' className="btn btn-warning shadow py-3 px-4 fw-semibold fontSize18">Voir plus </Link>
                 </div>
             </div>
         </section>
