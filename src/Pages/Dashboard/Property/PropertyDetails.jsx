@@ -34,8 +34,9 @@ const PropertyDetails = ({ id }) => {
                                 </div>
                                 <div className="col-md-12 ">
                                     <label for="formFile" className="form-label fw-semibold">Image Principale <span className="text-danger">*</span></label>
-                                    <input className="form-control" type="file" id="formFile" name='picture' />
-                                    <img src={API_URL + annonce?.picture} alt="" width='100px' className='mt-1' />
+                                    <div>
+                                        <img src={API_URL + annonce?.picture} alt="" width='100px' className='mt-1' />
+                                    </div>
                                 </div>
                                 <div className="col-md-12 ">
                                     <label for="formFile" className="form-label fw-semibold">Gallery d'images <span className="text-danger">*</span></label>

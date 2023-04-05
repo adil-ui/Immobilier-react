@@ -86,7 +86,9 @@ const Contact = () => {
                             <label class="form-label fw-semibold">Message <span class="text-danger">*</span></label>
                             <textarea name="message" class="form-control" rows="4" onChange={(e) => setMessage(e.target.value)} required>{message}</textarea >
                         </div>
-                        <div className="message">{notification ? <p>{notification}</p> : null}</div>
+                        {notification && <p className='alert alert-success mt-1 py-3 text-center alert-dismissible fade show' role="alert">{notification}
+                            <button type="button" onClick={() => setNotification("")} class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </p>}
                         <div className="mt-4">
                             <button type="submit" className="btn btn-warning col-12 fw-semibold ">Envoyer</button>
                         </div>

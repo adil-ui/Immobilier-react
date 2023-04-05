@@ -158,7 +158,7 @@ const AddProperty = () => {
 
         try {
             const res = await axios.post(API_URL + 'api/add-property', formData);
-            setMessage(res.success);
+            setMessage(res.data.success);
         } catch (error) {
             setMessage(error.message);
             console.log(error.response);
@@ -309,7 +309,9 @@ const AddProperty = () => {
                             <label for="latitude " className="form-label fw-semibold">Latitude  <span className="text-danger">*</span></label>
                             <input type="text" className="form-control" name='latitude ' id="latitude " value={latitude} onChange={(e) => setLatitude(e.target.value)} required />
                         </div>
-                        <div className="text-warning fw-semibold text-center fs-5 mt-3">{message && <p>{message}</p>}</div>
+                        {message && <p className='alert alert-warning py-3 text-center alert-dismissible fade show' role="alert">{message}
+                            <button type="button" class="btn-close" onClick={()=> setMessage("")} data-bs-dismiss="alert" aria-label="Close"></button>
+                        </p>}
                         <div class="col-12 text-center mt-5">
                             <button type="submit" class="btn btn-warning fw-semibold px-4 shadow-sm col-12 fs-5 py-2">Publier l'annonce</button>
                         </div>

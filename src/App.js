@@ -57,6 +57,7 @@ function App() {
           <Route path='/details/:id' element={<Details />} />
           <Route path='/publier-annonce' element={<ProtectedRoute user={user}><AddProperty /></ProtectedRoute>} />
           <Route path='/annonces' element={<Search />} />
+          <Route path='/annonces/:city?:categorie?:type?' element={<Search />} />
           <Route path='/dashboard' element={<ProtectedRoute user={user}><Aside /></ProtectedRoute>}>
             {userRole === 'admin' ?
               <>
@@ -73,9 +74,13 @@ function App() {
               <>
                 <Route path='' element={<Profile />} />
                 <Route path='mes-annonces' element={<MyProperties />} />
+                <Route path='modifier-mon-annonce/:id' element={<EditMyProperty />} />
+
               </>
             }
           </Route>
+          <Route path='*' element={<div className='page404 d-flex  justify-content-center align-items-center'><h2 className='text-danger fw-semibold'>404 Page Not Found</h2></div>} />
+
         </Routes>
       </main>
       <Footer />

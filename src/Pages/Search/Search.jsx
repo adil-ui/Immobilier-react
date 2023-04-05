@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { Link } from "react-router-dom"
+import { Link, useParams } from "react-router-dom"
 import Cardd from "../../Components/Cardd/Cardd"
 import { API_URL } from "../../config/constants"
 
@@ -12,13 +12,15 @@ import PaginationFilter from "../../Components/PaginationFilter/PaginationFilter
 
 
 const Search = () => {
-    
+
     const [data, setData] = useState([]);
     const [result, setResult] = useState(0);
     const [categories, setCategories] = useState([]);
     const [cities, setCities] = useState([]);
+    const [sectors, setSectors] = useState([]);
     const [category, setCategory] = useState("");
     const [city, setCity] = useState("");
+    const [sector, setSector] = useState("");
     const [type, setType] = useState('');
     const [livingRoom, setLivingRoom] = useState("");
     const [bedroom, setBedroom] = useState("");
@@ -53,12 +55,23 @@ const Search = () => {
                 setCities(result.cities);
             })
     }, [])
+    useEffect(() => {
+        axios.get(API_URL + 'api/list-sectors')
+            .then(response => {
+                setSectors(response.data.sectors);
+                console.log(response.data);
+            })
+            .catch(error => {
+                console.log(error);
+            })
+    }, [])
 
     const filter = async (e) => {
         e.preventDefault();
         setFiltered(true);
         const formData = new FormData();
         formData.append('city', city);
+        formData.append('sector', sector);
         formData.append('category', category);
         formData.append('type', type);
         formData.append('livingRoom', livingRoom);
@@ -115,8 +128,8 @@ const Search = () => {
     return (
         <section className="search py-4">
             <div className="container col-xl-12  col-10  bg-white rounded-3 py-1 shadow-sm   mx-auto">
-                <div className="py-3 d-flex flex-md-row flex-column  justify-content-between align-items-center">
-                    <div className="fw-semibold"><span>{result}</span> Résultats</div>
+                <div className="py-3 d-flex flex-md-row flex-column  justify-content-end align-items-center">
+                    {/* <div className="fw-semibold"><span>{result}</span> Résultats</div> */}
                     <div>
                         <span className="me-3 fw-semibold">Trier par:</span>
                         <Link onClick={filterByDate} className="me-2 text-warning border-bottom border-warning dateActive active">Date</Link>
@@ -141,6 +154,14 @@ const Search = () => {
                                     <option selected disabled>Ville</option>
                                     {cities.map(city => (
                                         <option value={city.id}>{city.name}</option>
+                                    ))}
+                                </select>
+                            </div>
+                            <div className="col-xl-12 col-lg-4 col-md-6 col-sm-12 col-12">
+                                <select class="form-select" id="ville" onChange={(e) => setSector(e.target.value)}>
+                                    <option selected disabled>Quartier</option>
+                                    {sectors?.map(sector => (
+                                        <option value={sector.id}>{sector.name}</option>
                                     ))}
                                 </select>
                             </div>

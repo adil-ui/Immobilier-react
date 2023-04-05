@@ -26,9 +26,9 @@ const Footer = () => {
 					<div className="col-md-6 col-lg-3 pl-lg-5 mb-4 mb-md-0">
 						<h4 className="text-warning mb-4 fw-semibold">Liens directs</h4>
 						<p><Link to='/' className="py-1 fontSize17 d-block text">Accueil</Link></p>
-						<p><Link to='/search' className="py-1 fontSize17 d-block text">Recherche</Link></p>
+						<p><Link to='/annonces' className="py-1 fontSize17 d-block text">Annonces</Link></p>
 						<p><Link to='/contact' className="py-1 fontSize17 d-block text">Contact</Link></p>
-						<p><Link to='/account' className="py-1 fontSize17 d-block text">Mon Compte</Link></p>
+						<p><Link to='/dashboard' className="py-1 fontSize17 d-block text">Mon Compte</Link></p>
 					</div>
 					<div className="col-md-6 col-lg-3 mb-4 mb-md-0">
 						<h4 className="text-warning fw-semibold">Vous avez des questions ?</h4>

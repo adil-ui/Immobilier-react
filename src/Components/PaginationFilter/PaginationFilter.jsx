@@ -47,8 +47,8 @@ const PaginationFilter = ({ setElements, elementName, url, allElementsUrl, formD
     };
 
     return (
-        <nav aria-label="..." className='mt-4 d-flex justify-content-center bg-transparent shadow-none  '>
-            <ul className="pagination ">
+        <nav aria-label="..." className='mt-4 d-flex justify-content-center bg-transparent shadow-none  myPagination'>
+            <ul className="pagination bg-transparent">
                 <li className={`page-item ${currentPage === 1 ? "disabled" : ""}`}>
                     <span onClick={previous} class="page-link">Previous</span>
                 </li>

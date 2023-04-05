@@ -2,6 +2,7 @@
 import { useEffect, useState } from 'react';
 import { API_URL } from '../../config/constants';
 import './Dashboard.css'
+import PropertyDetails from './Property/PropertyDetails';
 const Dashboard = () => {
     const [properties, setProperties] = useState([])
     const [nbrUsers, setNbrUsers] = useState(0)
@@ -80,6 +81,7 @@ const Dashboard = () => {
                                 <th scope="col" className='text-warning'>Propriétaire</th>
                                 <th scope="col" className='text-warning'>Categorie</th>
                                 <th scope="col" className='text-warning'>Type</th>
+                                <th scope="col" className='text-warning'>Action</th>
                             </tr>
                         </thead>
                         <tbody className=''>
@@ -95,8 +97,11 @@ const Dashboard = () => {
                                         <td className="align-middle">{annonce.user.name}</td>
                                         <td className="align-middle">{annonce.category?.name}</td>
                                         <td className="align-middle">{annonce.type}</td>
+                                        <td className="align-middle">
+                                            <button className="btn btn-success me-1"><i class="bi bi-eye-fill" data-bs-toggle="modal" data-bs-target={`#details-${annonce.id}`}></i></button>
+                                        </td>
                                     </tr>
-
+                                    <PropertyDetails id={annonce.id} />
                                 </>
 
 

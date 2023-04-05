@@ -5,20 +5,8 @@ import AuthContext from '../../../context/auth-context';
 import './Login.css'
 import axios from 'axios';
 import validator from 'validator';
-import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-const notify = () => {
-    toast.success('Bienvenu', {
-        position: "top-center",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-    });
-}
+
 
 const Login = () => {
     const [email, setEmail] = useState("");
@@ -79,14 +67,15 @@ const Login = () => {
                         <input type="password" className="form-control" name='password' value={password} onChange={(e) => setPassword(e.target.value)} required />
                     </div>
 
-                    <div className="text-danger  text-center fw-semibold">{message ? <p>{message}</p> : null}</div>
+                    {message && <p className='alert alert-danger py-3 text-center alert-dismissible fade show' role="alert">{message}
+                        <button type="button" onClick={()=> setMessage("")} class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </p>}
                     <div className="mt-4 d-flex align-items-center justify-content-between">
                         <NavLink to={'/inscription'} className="text-warning fw-semibold">S'inscire ?</NavLink>
                         <NavLink to={'/mot-de-passe-oublier'} className="text-warning fw-semibold">Mot de passe oublier ?</NavLink>
                     </div>
                     <div className="mt-4">
-                        <button disabled={!validator.isEmail(email)} type="submit" className="btn btn-warning  col-12 fw-semibold px-4" onClick={notify}>Se Connecter</button>
-                        <ToastContainer />
+                        <button disabled={!validator.isEmail(email)} type="submit" className="btn btn-warning  col-12 fw-semibold px-4" >Se Connecter</button>
                     </div>
                 </form>
             </div>

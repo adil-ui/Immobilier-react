@@ -187,7 +187,7 @@ const EditMyProperty = () => {
         <div className=" col-md-8 col-10 mx-md-0 mx-auto bg-white  pt-4 rounded-2 shadow-sm height_100" >
             <form className="" onSubmit={submit}>
                 <div className='row g-4   px-4 pt-2 pb-5'>
-                    <h5 className='fw-bold'>Details du logement</h5>
+                    <h5 className='fw-bold'>Modifier L'annonce</h5>
                     <div className="col-md-12">
                         <label for="title" className="form-label fw-semibold">Titre <span className="text-danger">*</span></label>
                         <input type="text" className="form-control" id="title" name='title' value={title} onChange={(e) => setTitle(e.target.value.toUpperCase())} />
@@ -209,7 +209,7 @@ const EditMyProperty = () => {
                                 <img src={API_URL + elt.picture} alt="" width='100px' className='mt-1 me-1' />
                                 <button onClick={() => deletePicture(elt.id)} className="btn btn-danger"><i class="bi bi-trash3-fill"></i></button>
                             </div>
-                            
+
                         ))}
                     </div>
                     <div className="col-md-4">
@@ -275,7 +275,7 @@ const EditMyProperty = () => {
                         {selectedCity ?
                             <select id="sector" className="form-select" onChange={handleDistrictChange}>
                                 <option value={selectedDistrict}>{selectedDistrict}</option>
-                                {cities.find(city => city.name === selectedCity).districts.map(district => district !== selectedDistrict &&
+                                {cities.find(city => city.name === selectedCity)?.districts.map(district => district !== selectedDistrict &&
                                     <option key={district} value={district}>{district}</option>
                                 )}
                             </select>
@@ -305,7 +305,9 @@ const EditMyProperty = () => {
                         <label for="latitude " className="form-label fw-semibold">Latitude  <span className="text-danger">*</span></label>
                         <input type="text" className="form-control" name='latitude ' id="latitude " value={latitude} onChange={(e) => setLatitude(e.target.value)} />
                     </div>
-                    <div className="text-warning fw-semibold text-center fs-5 mt-3">{message ? <p>{message}</p> : null}</div>
+                    {message && <p className='alert alert-warning py-3 text-center alert-dismissible fade show' role="alert">{message}
+                        <button type="button" class="btn-close" onClick={() => setMessage("")} data-bs-dismiss="alert" aria-label="Close"></button>
+                    </p>}
                     <div class="col-12  mt-4 text-end" >
                         <button type="submit" class="btn btn-warning fw-semibold px-4 shadow-sm  fs-5">Modifier l'annonce</button>
                     </div>

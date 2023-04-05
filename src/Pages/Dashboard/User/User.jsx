@@ -1,3 +1,4 @@
+import axios from "axios";
 import { useEffect, useState } from "react"
 import Pagination from "../../../Components/Pagination/Pagination";
 import { API_URL } from "../../../config/constants"
@@ -16,7 +17,16 @@ const User = () => {
                 setUsers(result.users);
             })
     }, [])
-
+    const deleteUser = (id) => {
+        axios.delete(API_URL + 'api/delete-user/' + id, {
+            headers: {
+                Authorization: `Bearer ${user.token}`
+            }
+        })
+            .then(() => {
+                window.location.reload();
+            });
+    }
     
     return (
         <section className="col-md-8 col-10 mx-md-0 mx-auto height_100 rounded-3 shadow-sm p-4  bg-white g-0 " >
@@ -31,6 +41,7 @@ const User = () => {
                             <th scope="col" className='text-warning'>Email</th>
                             <th scope="col" className='text-warning'>Addresse</th>
                             <th scope="col" className='text-warning'>Téléphone</th>
+                            <th scope="col" className='text-warning'>Action</th>
                         </tr>
                     </thead>
                     <tbody className=''>
@@ -42,6 +53,9 @@ const User = () => {
                                 <td className="pt-3">{user.email}</td>
                                 <td className="pt-3">{user.address}</td>
                                 <td className="pt-3">{user.phone}</td>
+                                <td className="align-middle">
+                                    <button onClick={() => deleteUser(user.id)} className="btn btn-danger"><i class="bi bi-trash3-fill"></i></button>
+                                </td>
                                 
                             </tr>
                         ))}

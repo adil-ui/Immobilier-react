@@ -7,6 +7,9 @@ import PropertyDetails from "./PropertyDetails";
 
 const Property = () => {
     const [annonces, setAnnonces] = useState([]);
+    const [search, setSearch] = useState('id');
+    const [searchValue, setSearchValue] = useState('');
+    const [dataLenght, setDataLenght] = useState(0);
     const user = JSON.parse(localStorage.getItem('user'));
 
 
@@ -20,6 +23,7 @@ const Property = () => {
             .then(result => {
                 setAnnonces(result.properties);
                 console.log(result.properties);
+                setDataLenght(result.propertiesLenght)
 
             })
     }, [])
@@ -33,11 +37,42 @@ const Property = () => {
                 window.location.reload();
             });
     }
+    const submit = (e) => {
+        e.preventDefault();
 
+        axios.post(API_URL + "api/searchAll", { search, searchValue }, {
+            headers: {
+                'Authorization': `Bearer ${user.token}`
+            }
+        })
+            .then(response => {
+                console.log(response.data)
+                setAnnonces(response.data.properties)
+                setDataLenght(response.data.propertiesLenght)
+            })
+
+            .catch(error =>
+                console.log(error)
+            )
+    }
     return (
-        <section className="col-md-8 col-10 mx-md-0 mx-auto bg-white p-4 pb-2 rounded-2 shadow-sm height_100 position-relative" >
-            <h5 className="fw-semibold mb-4">Liste des logements</h5>
+        <section className="col-md-8 col-10 mx-md-0 mx-auto bg-white p-4 pb-0 rounded-2 shadow-sm height_100 position-relative" >
+            <form onSubmit={submit}>
+                <div class="input-group mx-auto">
 
+                    <select class="search_select" onChange={(e) => {
+                        setSearch(e.target.value)
+                        setSearchValue("")
+                    }}>
+                        <option value="id" selected>Id</option>
+                        <option value="title">Titre</option>
+                        <option value="city">Ville</option>
+                    </select>
+                    <input type="text" class="form-control" value={searchValue} onChange={(e) => setSearchValue(e.target.value)} />
+                    <button class="btn btn-outline-secondary" type="submit" >Chercher</button>
+                </div>
+
+            </form>
             <div class="table-responsive   mx-auto  mytable rounded-3  mt-4">
                 <table class="table bg-white table-hover  rounded-3  m-0">
                     <thead>
@@ -62,15 +97,15 @@ const Property = () => {
                                     </td>
                                     <td className="align-middle">{annonce.title}</td>
                                     <td className="align-middle">{annonce.price} Dh</td>
-                                    <td className="align-middle">{annonce.user.name}</td>
-                                    <td className="align-middle">{annonce.category.name}</td>
+                                    <td className="align-middle">{annonce.user?.name}</td>
+                                    <td className="align-middle">{annonce.category?.name}</td>
                                     <td className="align-middle">{annonce.type}</td>
                                     <td className="align-middle">
                                         <button className="btn btn-success me-1"><i class="bi bi-eye-fill" data-bs-toggle="modal" data-bs-target={`#details-${annonce.id}`}></i></button>
                                         <button onClick={() => deleteProperty(annonce.id)} className="btn btn-danger"><i class="bi bi-trash3-fill"></i></button>
                                     </td>
                                 </tr>
-                               <PropertyDetails id={annonce.id} />
+                                <PropertyDetails id={annonce.id} />
                             </>
 
 
@@ -78,12 +113,14 @@ const Property = () => {
 
                     </tbody>
                 </table>
-                <Pagination
-                    setElements={setAnnonces}
-                    elementName="properties"
-                    url={"api/list-properties/"}
-                    allElementsUrl={"api/list-properties"}
-                />
+                {dataLenght > 5 &&
+                    <Pagination
+                        setElements={setAnnonces}
+                        elementName="properties"
+                        url={"api/list-properties/"}
+                        allElementsUrl={"api/list-properties"}
+                    />
+                }
             </div>
         </section>
     )

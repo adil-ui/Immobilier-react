@@ -53,7 +53,7 @@ const Details = () => {
         window.scroll(0, 0);
     }, [])
     return (
-        <section className='container row my-5 py-4 mx-auto gx-2'>
+        <section className='container row my-5 py-4 mx-auto gx-2' >
             <div className='col-lg-8 mx-auto my-4 py-2'>
                 {property && propertyPictures.length > 0 && <div className='imageList border rounded-3 shadow-sm text-center pb-2'>
                     <div className='mx-auto mb-3'>
@@ -150,7 +150,9 @@ const Details = () => {
                             <label class="form-label">Message <span class="text-danger">*</span></label>
                             <textarea name="message" class="form-control" rows="4" onChange={(e) => setMessage(e.target.value)} required>{message}</textarea >
                         </div>
-                        <div className="message">{notification ? <p>{notification}</p> : null}</div>
+                        {notification && <p className='alert alert-warning py-3 text-center mt-1 alert-dismissible fade show' role="alert">{notification}
+                            <button type="button" class="btn-close" onClick={()=> setNotification("")} data-bs-dismiss="alert" aria-label="Close"></button>
+                        </p>}
                         <div className="mt-4">
                             <button type="submit" className="btn btn-warning col-12 fw-semibold ">Envoyer</button>
                         </div>
