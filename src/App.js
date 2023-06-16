@@ -57,7 +57,6 @@ function App() {
           <Route path='/details/:id' element={<Details />} />
           <Route path='/publier-annonce' element={<ProtectedRoute user={user}><AddProperty /></ProtectedRoute>} />
           <Route path='/annonces' element={<Search />} />
-          <Route path='/annonces/:city?:categorie?:type?' element={<Search />} />
           <Route path='/dashboard' element={<ProtectedRoute user={user}><Aside /></ProtectedRoute>}>
             {userRole === 'admin' ?
               <>

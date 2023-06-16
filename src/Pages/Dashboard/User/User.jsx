@@ -24,7 +24,7 @@ const User = () => {
             }
         })
             .then(() => {
-                window.location.reload();
+                setUsers(users.filter(f=>f.id !== id ))
             });
     }
     

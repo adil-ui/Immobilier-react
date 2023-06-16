@@ -40,7 +40,7 @@ const Categories = () => {
             }
         })
             .then(() => {
-                window.location.reload();
+                setListCategories(listCategories.filter(f=>f.id !== id ))
             });
     }
     return (
@@ -84,7 +84,7 @@ const Categories = () => {
                         <tr>
                             <th scope="col" className='text-warning'>#</th>
                             <th scope="col" className='text-warning'>Photo</th>
-                            <th scope="col" className='text-warning'>Titre</th>
+                            <th scope="col" className='text-warning '>Titre</th>
                             <th scope="col" className='text-warning'>Action</th>
                         </tr>
                     </thead>
@@ -95,9 +95,8 @@ const Categories = () => {
                                 <td>
                                     <img src={API_URL + categorie.picture} className="img-fluid rounded-circle align-middle" alt="categorie_picture" width='45px ' />
                                 </td>
-                                <td className="align-middle">{categorie.name}</td>
+                                <td className="align-middle fontSize18">{categorie.name}</td>
                                 <td className="align-middle">
-                                    <button className="btn btn-danger"><i class="bi bi-trash3-fill"></i> </button>
                                     <button onClick={() => deleteCategory(categorie.id)} className="btn btn-danger"><i class="bi bi-trash3-fill"></i>Delete</button>
 
                                 </td>

@@ -7,7 +7,7 @@ import PropertyDetails from "./PropertyDetails";
 
 const Property = () => {
     const [annonces, setAnnonces] = useState([]);
-    const [search, setSearch] = useState('id');
+    const [search, setSearch] = useState('all');
     const [searchValue, setSearchValue] = useState('');
     const [dataLenght, setDataLenght] = useState(0);
     const user = JSON.parse(localStorage.getItem('user'));
@@ -34,13 +34,15 @@ const Property = () => {
             }
         })
             .then(() => {
-                window.location.reload();
+                setAnnonces(annonces.filter(f=>f.id !== id ))
             });
+
     }
+
     const submit = (e) => {
         e.preventDefault();
 
-        axios.post(API_URL + "api/searchAll", { search, searchValue }, {
+        axios.post(API_URL + "api/searchAll/1", { search, searchValue }, {
             headers: {
                 'Authorization': `Bearer ${user.token}`
             }
@@ -60,15 +62,17 @@ const Property = () => {
             <form onSubmit={submit}>
                 <div class="input-group mx-auto">
 
-                    <select class="search_select" onChange={(e) => {
+                <select class="form-select" onChange={(e) => {
                         setSearch(e.target.value)
                         setSearchValue("")
-                    }}>
-                        <option value="id" selected>Id</option>
+                        }}>
+                         <option value="all" selected>Tout</option>
+                         <option value="id">Id</option>
                         <option value="title">Titre</option>
                         <option value="city">Ville</option>
+                        <option value="category">Catégorie</option>
                     </select>
-                    <input type="text" class="form-control" value={searchValue} onChange={(e) => setSearchValue(e.target.value)} />
+                    <input type="text" class="form-control w-50" value={searchValue} onChange={(e) => setSearchValue(e.target.value)} />
                     <button class="btn btn-outline-secondary" type="submit" >Chercher</button>
                 </div>
 
@@ -83,12 +87,13 @@ const Property = () => {
                             <th scope="col" className='text-warning'>Prix</th>
                             <th scope="col" className='text-warning'>Propriétaire</th>
                             <th scope="col" className='text-warning'>Categorie</th>
-                            <th scope="col" className='text-warning'>Type</th>
+                            <th scope="col" className='text-warning'>Ville</th>
                             <th scope="col" className='text-warning'>Action</th>
                         </tr>
                     </thead>
                     <tbody className=''>
-                        {annonces.map(annonce => (
+                    {annonces.length > 0 ?
+                        annonces.map(annonce => (
                             <>
                                 <tr>
                                     <th scope="row" className="align-middle">{annonce.id}</th>
@@ -99,7 +104,7 @@ const Property = () => {
                                     <td className="align-middle">{annonce.price} Dh</td>
                                     <td className="align-middle">{annonce.user?.name}</td>
                                     <td className="align-middle">{annonce.category?.name}</td>
-                                    <td className="align-middle">{annonce.type}</td>
+                                    <td className="align-middle">{annonce.city?.name}</td>
                                     <td className="align-middle">
                                         <button className="btn btn-success me-1"><i class="bi bi-eye-fill" data-bs-toggle="modal" data-bs-target={`#details-${annonce.id}`}></i></button>
                                         <button onClick={() => deleteProperty(annonce.id)} className="btn btn-danger"><i class="bi bi-trash3-fill"></i></button>
@@ -109,7 +114,12 @@ const Property = () => {
                             </>
 
 
-                        ))}
+                        ))
+                        :
+                            <tr>
+                                <td colSpan='8' className="text-center py-5">Aucune résultat n'a été trouvé</td>
+                            </tr>
+                        }
 
                     </tbody>
                 </table>

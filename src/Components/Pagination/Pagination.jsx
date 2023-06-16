@@ -57,7 +57,7 @@ const Pagination = ({ setElements, elementName, url, allElementsUrl }) => {
             })
     };
     return (
-        <nav aria-label="..." className='mt-4 d-flex justify-content-center bg-transparent shadow-none  myPagination'>
+        <nav aria-label="..." className='mt-3 d-flex justify-content-center bg-transparent shadow-none  myPagination'>
             <ul className="pagination ">
                 <li className={`page-item ${currentPage === 1 ? "disabled" : ""}`}>
                     <span onClick={previous} class="page-link">Previous</span>

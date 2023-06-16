@@ -8,11 +8,11 @@ const PropertyDetails = ({ id }) => {
         fetch(API_URL + 'api/details/' + id)
             .then(response => response.json())
             .then(result => {
-                console.log(result);
+                console.log("Property", result.property);
                 setAnnonce(result.property[0]);
                 setPropertyPictures(result.PropertyPictures);
             })
-    }, [])
+    }, [id])
     return (
         <div class="modal fade" id={`details-${id}`} tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg">

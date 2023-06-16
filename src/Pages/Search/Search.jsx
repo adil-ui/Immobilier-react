@@ -10,14 +10,12 @@ import Paginationn from "../../Components/Paginationn/Paginationn"
 import axios from "axios"
 import PaginationFilter from "../../Components/PaginationFilter/PaginationFilter"
 
-
 const Search = () => {
 
     const [data, setData] = useState([]);
     const [result, setResult] = useState(0);
     const [categories, setCategories] = useState([]);
     const [cities, setCities] = useState([]);
-    const [sectors, setSectors] = useState([]);
     const [category, setCategory] = useState("");
     const [city, setCity] = useState("");
     const [sector, setSector] = useState("");
@@ -55,16 +53,6 @@ const Search = () => {
                 setCities(result.cities);
             })
     }, [])
-    useEffect(() => {
-        axios.get(API_URL + 'api/list-sectors')
-            .then(response => {
-                setSectors(response.data.sectors);
-                console.log(response.data);
-            })
-            .catch(error => {
-                console.log(error);
-            })
-    }, [])
 
     const filter = async (e) => {
         e.preventDefault();
@@ -86,6 +74,7 @@ const Search = () => {
         try {
             const response = await axios.post(API_URL + 'api/filter-properties', formData)
             setData(response.data.properties)
+            window.scroll(0, 0);
             console.log(response.data);
 
         } catch (error) {
@@ -122,6 +111,7 @@ const Search = () => {
         $('.ascActive').removeClass('active')
         $('.descActive').addClass('active')
     }
+
     useEffect(() => {
         window.scroll(0, 0);
     }, [])
@@ -132,9 +122,9 @@ const Search = () => {
                     {/* <div className="fw-semibold"><span>{result}</span> Résultats</div> */}
                     <div>
                         <span className="me-3 fw-semibold">Trier par:</span>
-                        <Link onClick={filterByDate} className="me-2 text-warning border-bottom border-warning dateActive active">Date</Link>
-                        <Link onClick={orderByAsc} className="me-2 text-warning border-bottom border-warning ascActive">Prix Croissant</Link>
-                        <Link onClick={orderByDesc} className="text-warning border-bottom border-warning descActive">Prix Décroissant</Link>
+                        <Link onClick={filterByDate} className="me-2 text-warning border-bottom border-warning dateActive active">Plus récent</Link>
+                        <Link onClick={orderByAsc} className="me-2 text-warning border-bottom border-warning ascActive">Prix croissant</Link>
+                        <Link onClick={orderByDesc} className="text-warning border-bottom border-warning descActive">Prix décroissant</Link>
 
                     </div>
 
@@ -149,6 +139,13 @@ const Search = () => {
                             <h3><i class="bi bi-funnel"></i></h3>
                         </div>
                         <div className="form_search row px-3 w-100 mx-auto">
+                        <div className="col-xl-12 col-lg-4 col-md-6 col-sm-12 col-12">
+                                <select id="type" name='type' className="form-select" onChange={(e) => setType(e.target.value)}>
+                                    <option selected disabled>Type</option>
+                                    <option value='À VENDRE'>À VENDRE</option>
+                                    <option value='À LOUER'>À LOUER</option>
+                                </select>
+                            </div>
                             <div className="col-xl-12 col-lg-4 col-md-6 col-sm-12 col-12">
                                 <select class="form-select" id="ville" onChange={(e) => setCity(e.target.value)}>
                                     <option selected disabled>Ville</option>
@@ -158,12 +155,7 @@ const Search = () => {
                                 </select>
                             </div>
                             <div className="col-xl-12 col-lg-4 col-md-6 col-sm-12 col-12">
-                                <select class="form-select" id="ville" onChange={(e) => setSector(e.target.value)}>
-                                    <option selected disabled>Quartier</option>
-                                    {sectors?.map(sector => (
-                                        <option value={sector.id}>{sector.name}</option>
-                                    ))}
-                                </select>
+                                <input type="text" onChange={(e) => setSector(e.target.value)} className="form-control" name='floor' id="floor" placeholder="Secteur" />
                             </div>
 
                             <div className="col-xl-12 col-lg-4 col-md-6 col-sm-12 col-12">
@@ -174,13 +166,7 @@ const Search = () => {
                                     ))}
                                 </select>
                             </div>
-                            <div className="col-xl-12 col-lg-4 col-md-6 col-sm-12 col-12">
-                                <select id="type" name='type' className="form-select" onChange={(e) => setType(e.target.value)}>
-                                    <option selected disabled>Type</option>
-                                    <option value='À VENDRE'>À VENDRE</option>
-                                    <option value='À LOUER'>À LOUER</option>
-                                </select>
-                            </div>
+                            
 
                             <div className="col-xl-12 col-lg-4 col-md-6 col-sm-12 col-12">
                                 <input type="number" onChange={(e) => setLivingRoom(e.target.value)} className="form-control" name='liv_room' placeholder="Nombre de salon" id="liv_room" />

@@ -8,16 +8,7 @@ header{
     background-size: cover;
     background-repeat: no-repeat;
 }
-nav{
-    z-index: 99;
-}
-.nav-link{
-    transition: .5s;
-}
-.nav-link:hover{
-    color: #f5a306 !important;
-    transform: translateY(-2px);
-}
+
 .btn_anim{
     transition: .5s;
 }
@@ -30,6 +21,7 @@ nav{
 .text-warning{
     color: #f7b40c !important;
 }
+
 
 .fontSize60{
     font-size: 60px;
@@ -80,14 +72,5 @@ a{
  .page404{
     height: 100vh;
 }
-.search_select{
-    width: 10% !important;
-    padding: 0.375rem 0.75rem;
-    font-size: 1rem;
-    font-weight: 400;
-    line-height: 1.5;
-    color:#212529;
-    background-clip: padding-box;
-    border: 1px solid #dee2e6;
-    border-radius: 0.375rem;
-}
+
+

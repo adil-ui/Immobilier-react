@@ -1,6 +1,7 @@
 import { useContext } from 'react';
 import { NavLink } from 'react-router-dom'
 import AuthContext from '../../context/auth-context';
+import './NavBar.css'
 
 const NavBar = () => {
     const { user } = useContext(AuthContext);
@@ -17,21 +18,21 @@ const NavBar = () => {
                     <ul className="navbar-nav mb-2 mb-lg-0 ms-auto" >
 
                         <li className='nav-item me-2 mt-0 mb-1 mt-lg-3' >
-                            <NavLink className=" fontSize18 nav-link text-dark  fw-semibold" to='accueil' >Accueil</NavLink>
+                            <NavLink className=" fontSize18 nav-link navLink text-dark  fw-semibold" to='accueil' >Accueil</NavLink>
                         </li>
                         <li className='nav-item me-2 mt-0 mb-1 mt-lg-3' >
-                            <NavLink className=" fontSize18 nav-link text-dark  fw-semibold" to='annonces' >Annonces</NavLink>
+                            <NavLink className=" fontSize18 nav-link navLink text-dark  fw-semibold" to='annonces' >Annonces</NavLink>
                         </li>
                         <li className='nav-item me-2 mt-0 mb-1 mt-lg-3' >
-                            <NavLink className=" fontSize18 nav-link text-dark  fw-semibold" to='contact' >Contact</NavLink>
+                            <NavLink className=" fontSize18 nav-link navLink text-dark  fw-semibold" to='contact' >Contact</NavLink>
                         </li>
                         {user ?
                             <li className='nav-item me-2 mt-0 mb-1 mt-lg-3' >
-                                <NavLink className=" fontSize18 nav-link text-dark  fw-semibold" to='connexion' >Mon compte</NavLink>
+                                <NavLink className=" fontSize18 nav-link navLink text-dark  fw-semibold" to='connexion' >Mon compte</NavLink>
                             </li> 
                             :
                             <li className='nav-item me-2 mt-0 mb-1 mt-lg-3' >
-                                <NavLink className=" fontSize18 nav-link text-dark  fw-semibold" to='connexion' >Se connecter</NavLink>
+                                <NavLink className=" fontSize18 nav-link navLink text-dark  fw-semibold" to='connexion' >Se connecter</NavLink>
                             </li>
                         }
 

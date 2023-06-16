@@ -180,7 +180,7 @@ const EditMyProperty = () => {
             }
         })
             .then(() => {
-                window.location.reload();
+                setPropertyPictures(propertyPictures.filter(f=>f.id !== id ))
             });
     }
     return (
